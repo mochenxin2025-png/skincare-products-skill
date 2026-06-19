@@ -1,0 +1,273 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://skincare-products-skill/schema/v1/report",
+  "title": "Cosmetic Analysis Report",
+  "type": "object",
+  "required": ["meta", "conclusion"],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": ["version", "timestamp", "product_category", "confidence"],
+      "properties": {
+        "version": { "type": "string", "const": "2.0.0" },
+        "timestamp": { "type": "string", "format": "date-time" },
+        "product_category": {
+          "type": "string",
+          "enum": ["cleanser", "moisturizer", "serum", "sunscreen", "shampoo", "other"]
+        },
+        "confidence": {
+          "type": "object",
+          "required": ["score", "label", "mode"],
+          "properties": {
+            "score": { "type": "number", "minimum": 0, "maximum": 1 },
+            "label": { "type": "string", "enum": ["high", "medium", "low", "critical"] },
+            "mode": { "type": "string", "enum": ["standard", "conservative"] }
+          }
+        }
+      }
+    },
+    "first_principle": {
+      "type": "object",
+      "properties": {
+        "category": { "type": "string" },
+        "objective": { "type": "string" }
+      }
+    },
+    "ontology_summary": {
+      "type": "object",
+      "properties": {
+        "categories": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["name", "count", "ingredients"],
+            "properties": {
+              "name": { "type": "string" },
+              "count": { "type": "integer" },
+              "ingredients": {
+                "type": "array",
+                "items": { "type": "string" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "ingredients": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["position", "inci", "ontology"],
+        "properties": {
+          "position": { "type": "integer", "minimum": 1 },
+          "inci": { "type": "string" },
+          "common_name": { "type": "string" },
+          "ontology": { "type": "string" },
+          "mechanism": { "type": "string" },
+          "evidence_level": {
+            "type": "string",
+            "enum": ["A", "B", "C", "D", "E", null]
+          },
+          "concentration": {
+            "type": "object",
+            "properties": {
+              "known": { "type": "boolean" },
+              "estimated_range": { "type": "string" },
+              "method": {
+                "type": "string",
+                "enum": ["declared", "position_inferred", "unknown"]
+              }
+            }
+          },
+          "risk": {
+            "type": "object",
+            "properties": {
+              "risk_type": { "type": "string" },
+              "severity": {
+                "type": "string",
+                "enum": ["low", "medium", "high", "prohibited"]
+              }
+            }
+          }
+        }
+      }
+    },
+    "architecture": {
+      "type": "object",
+      "properties": {
+        "carrier_system": { "type": "string" },
+        "ph_range": { "type": "string" },
+        "components": {
+          "type": "object",
+          "properties": {
+            "emulsifiers": { "type": "array", "items": { "type": "string" } },
+            "stabilizers": { "type": "array", "items": { "type": "string" } },
+            "thickeners": { "type": "array", "items": { "type": "string" } },
+            "film_former": { "type": "array", "items": { "type": "string" } },
+            "oil_phase": { "type": "array", "items": { "type": "string" } },
+            "water_phase": { "type": "array", "items": { "type": "string" } }
+          }
+        },
+        "assessment": { "type": "string" },
+        "architecture_score": { "type": "number", "minimum": 0, "maximum": 1 }
+      }
+    },
+    "risks": {
+      "type": "object",
+      "properties": {
+        "ingredients": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "inci": { "type": "string" },
+              "risk_type": { "type": "string" },
+              "severity": { "type": "string" },
+              "mechanism": { "type": "string" },
+              "impact": { "type": "string" }
+            }
+          }
+        },
+        "interactions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "pair": { "type": "array", "items": { "type": "string" }, "minItems": 2, "maxItems": 2 },
+              "type": { "type": "string", "enum": ["synergy", "antagonism", "conflict", "independent"] },
+              "mechanism": { "type": "string" },
+              "evidence": { "type": "string" },
+              "dimension_affected": { "type": "string" },
+              "im": { "type": "number", "minimum": 0.5, "maximum": 1.2 }
+            }
+          }
+        }
+      }
+    },
+    "skin_adaptation": {
+      "type": "object",
+      "properties": {
+        "compatibility": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "skin_type": { "type": "string" },
+              "suitability": {
+                "type": "string",
+                "enum": ["suitable", "caution", "not_recommended", "unknown"]
+              },
+              "notes": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "properties": {
+        "overall_quality": { "type": "string" },
+        "claims": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "claim": { "type": "string" },
+              "evidence_level": { "type": "string" },
+              "source": { "type": "string" },
+              "source_type": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "confidence_detail": {
+      "type": "object",
+      "properties": {
+        "factors": {
+          "type": "object",
+          "properties": {
+            "input_quality": {
+              "type": "object",
+              "properties": {
+                "score": { "type": "number" },
+                "label": { "type": "string" }
+              }
+            },
+            "database_match_rate": {
+              "type": "object",
+              "properties": {
+                "score": { "type": "number" },
+                "label": { "type": "string" }
+              }
+            },
+            "mechanism_certainty": {
+              "type": "object",
+              "properties": {
+                "score": { "type": "number" },
+                "label": { "type": "string" }
+              }
+            },
+            "interaction_certainty": {
+              "type": "object",
+              "properties": {
+                "score": { "type": "number" },
+                "label": { "type": "string" }
+              }
+            },
+            "concentration_certainty": {
+              "type": "object",
+              "properties": {
+                "score": { "type": "number" },
+                "label": { "type": "string" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "scoring": {
+      "type": "object",
+      "properties": {
+        "mode": { "type": "string", "enum": ["standard", "conservative"] },
+        "total": { "type": "number" },
+        "confidence_label": { "type": "string" },
+        "dimensions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": { "type": "string" },
+              "weight": { "type": "number" },
+              "presence_score": { "type": "number" },
+              "evidence_multiplier": { "type": "number" },
+              "interaction_modifier": { "type": "number" },
+              "dimension_score": { "type": "number" },
+              "contribution": { "type": "number" }
+            }
+          }
+        },
+        "marketing_penalty": { "type": "number" }
+      }
+    },
+    "conclusion": {
+      "type": "object",
+      "required": ["strengths", "limitations", "recommendation"],
+      "properties": {
+        "strengths": { "type": "array", "items": { "type": "string" } },
+        "limitations": { "type": "array", "items": { "type": "string" } },
+        "recommendation": { "type": "string" },
+        "disclaimer": { "type": "string" }
+      }
+    },
+    "data_gaps": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Present only in conservative mode"
+    },
+    "remediation": {
+      "type": "string",
+      "description": "Present only in conservative mode — how to get a better analysis"
+    }
+  }
+}
