@@ -11,6 +11,21 @@
 
 ---
 
+## 📖 What Is This?
+
+This is a **structured agent skill** that transforms any AI assistant into a dermatology-oriented cosmetic formulation analyst. Instead of evaluating products by brand reputation, marketing claims, or price, it applies:
+
+- **First-principle reasoning** — identify the biological objective before analyzing ingredients
+- **Evidence-based evaluation** — every mechanism claim mapped to an A–E evidence level
+- **15-category ingredient ontology** — unified classification before any efficacy analysis
+- **30 documented ingredient interactions** — synergy, antagonism, and conflict rules
+- **Harmonic-mean confidence scoring** — five-factor uncertainty propagation
+- **Per-category weight profiles** — 10 product types with optimized scoring dimensions
+
+The framework contains **631 structured data entries** across ingredient databases, interaction rules, and scientific references.
+
+---
+
 ## ⬇️ Download & Install
 
 ### Option 1: Clone via Git (recommended)
@@ -76,21 +91,6 @@ curl -sL https://github.com/mochenxin2025-png/skincare-products-skill/archive/re
 ```bash
 wget -qO- https://github.com/mochenxin2025-png/skincare-products-skill/archive/refs/heads/master.zip | tar -xf - && mv skincare-products-skill-master skincare-products-skill
 ```
-
----
-
-## 📖 What Is This?
-
-This is a **structured agent skill** that transforms any AI assistant into a dermatology-oriented cosmetic formulation analyst. Instead of evaluating products by brand reputation, marketing claims, or price, it applies:
-
-- **First-principle reasoning** — identify the biological objective before analyzing ingredients
-- **Evidence-based evaluation** — every mechanism claim mapped to an A–E evidence level
-- **15-category ingredient ontology** — unified classification before any efficacy analysis
-- **30 documented ingredient interactions** — synergy, antagonism, and conflict rules
-- **Harmonic-mean confidence scoring** — five-factor uncertainty propagation
-- **Per-category weight profiles** — 10 product types with optimized scoring dimensions
-
-The framework contains **631 structured data entries** across ingredient databases, interaction rules, and scientific references.
 
 ---
 
