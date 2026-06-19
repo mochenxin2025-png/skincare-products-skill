@@ -11,6 +11,74 @@
 
 ---
 
+## ⬇️ Download & Install
+
+### Option 1: Clone via Git (recommended)
+
+```bash
+git clone https://github.com/mochenxin2025-png/skincare-products-skill.git
+cd skincare-products-skill
+```
+
+### Option 2: Download ZIP
+
+[![Download ZIP](https://img.shields.io/badge/Download-ZIP-brightgreen?style=for-the-badge)](https://github.com/mochenxin2025-png/skincare-products-skill/archive/refs/heads/master.zip)
+
+Click the badge above or manually: **Code → Download ZIP** on the GitHub repo page, then extract the archive.
+
+### Option 3: Install as a Hermes Agent Skill
+
+If you're using [Hermes Agent](https://hermes-agent.nousresearch.com), you can install this skill in one command:
+
+```bash
+# Make sure the hermes-agent skill is loaded, then:
+hermes skills install skincare-products-skill
+```
+
+Or install from local directory:
+
+```bash
+cp -r /path/to/skincare-products-skill $HERMES_HOME/skills/
+# Verify:
+hermes skills list | grep skincare
+```
+
+### Option 4: Hermes Skill Archive (`.7z`)
+
+Download the portable archive for offline installation:
+
+👉 [**skincare-products-skill.7z**](https://github.com/mochenxin2025-png/skincare-products-skill/releases/download/v2.1/skincare-products-skill.7z)
+*(Extract to `$HERMES_HOME/skills/` using 7-Zip)*
+
+---
+
+### 🤖 Agent-Friendly Install (One-Liner)
+
+For AI agents (Hermes, Claude Code, Cursor, etc.) to download and install in one command:
+
+**Cross-agent via npx (recommended for agents):**
+```bash
+npx skills add mochenxin2025-png/skincare-products-skill --skill skincare-products-skill
+```
+
+**Hermes Agent:**
+```bash
+hermes skills install https://raw.githubusercontent.com/mochenxin2025-png/skincare-products-skill/master/SKILL.md
+```
+
+**Any agent via curl:**
+```bash
+# Download & extract in one shot
+curl -sL https://github.com/mochenxin2025-png/skincare-products-skill/archive/refs/heads/master.zip | tar -xf - && mv skincare-products-skill-master skincare-products-skill
+```
+
+**Or via wget:**
+```bash
+wget -qO- https://github.com/mochenxin2025-png/skincare-products-skill/archive/refs/heads/master.zip | tar -xf - && mv skincare-products-skill-master skincare-products-skill
+```
+
+---
+
 ## 📖 What Is This?
 
 This is a **structured agent skill** that transforms any AI assistant into a dermatology-oriented cosmetic formulation analyst. Instead of evaluating products by brand reputation, marketing claims, or price, it applies:
@@ -160,74 +228,6 @@ No two product types share the same scoring dimensions. Cleansers prioritize saf
 | Skin Types / Conditions | 12 |
 | Weight Profiles | 10 |
 | **Total Structured Data** | **~651** |
-
----
-
-## ⬇️ Download & Install
-
-### Option 1: Clone via Git (recommended)
-
-```bash
-git clone https://github.com/mochenxin2025-png/skincare-products-skill.git
-cd skincare-products-skill
-```
-
-### Option 2: Download ZIP
-
-[![Download ZIP](https://img.shields.io/badge/Download-ZIP-brightgreen?style=for-the-badge)](https://github.com/mochenxin2025-png/skincare-products-skill/archive/refs/heads/master.zip)
-
-Click the badge above or manually: **Code → Download ZIP** on the GitHub repo page, then extract the archive.
-
-### Option 3: Install as a Hermes Agent Skill
-
-If you're using [Hermes Agent](https://hermes-agent.nousresearch.com), you can install this skill in one command:
-
-```bash
-# Make sure the hermes-agent skill is loaded, then:
-hermes skills install skincare-products-skill
-```
-
-Or install from local directory:
-
-```bash
-cp -r /path/to/skincare-products-skill $HERMES_HOME/skills/
-# Verify:
-hermes skills list | grep skincare
-```
-
-### Option 4: Hermes Skill Archive (`.7z`)
-
-Download the portable archive for offline installation:
-
-👉 [**skincare-products-skill.7z**](https://github.com/mochenxin2025-png/skincare-products-skill/releases/download/v2.1/skincare-products-skill.7z)
-*(Extract to `$HERMES_HOME/skills/` using 7-Zip)*
-
----
-
-### 🤖 Agent-Friendly Install (One-Liner)
-
-For AI agents (Hermes, Claude Code, Cursor, etc.) to download and install in one command:
-
-**Cross-agent via npx (recommended for agents):**
-```bash
-npx skills add mochenxin2025-png/skincare-products-skill --skill skincare-products-skill
-```
-
-**Hermes Agent:**
-```bash
-hermes skills install https://raw.githubusercontent.com/mochenxin2025-png/skincare-products-skill/master/SKILL.md
-```
-
-**Any agent via curl:**
-```bash
-# Download & extract in one shot
-curl -sL https://github.com/mochenxin2025-png/skincare-products-skill/archive/refs/heads/master.zip | tar -xf - && mv skincare-products-skill-master skincare-products-skill
-```
-
-**Or via wget:**
-```bash
-wget -qO- https://github.com/mochenxin2025-png/skincare-products-skill/archive/refs/heads/master.zip | tar -xf - && mv skincare-products-skill-master skincare-products-skill
-```
 
 ---
 
