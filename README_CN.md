@@ -163,6 +163,47 @@ skincare-products-skill/
 
 ---
 
+## ⬇️ 下载与安装
+
+### 方式一：Git 克隆（推荐）
+
+```bash
+git clone https://github.com/mochenxin2025-png/skincare-products-skill.git
+cd skincare-products-skill
+```
+
+### 方式二：下载 ZIP 压缩包
+
+[![Download ZIP](https://img.shields.io/badge/下载-ZIP压缩包-brightgreen?style=for-the-badge)](https://github.com/mochenxin2025-png/skincare-products-skill/archive/refs/heads/master.zip)
+
+点击上方徽章，或手动进入 GitHub 仓库页面 → **Code → Download ZIP**，解压即可。
+
+### 方式三：作为 Hermes Agent 技能安装
+
+如果你在使用 [Hermes Agent](https://hermes-agent.nousresearch.com)，可以用一条命令安装：
+
+```bash
+# 确保已加载 hermes-agent 技能：
+hermes skills install skincare-products-skill
+```
+
+或者从本地目录复制安装：
+
+```bash
+cp -r /path/to/skincare-products-skill $HERMES_HOME/skills/
+# 验证安装：
+hermes skills list | grep skincare
+```
+
+### 方式四：Hermes 技能归档包（`.7z`）
+
+下载便携式归档包用于离线安装：
+
+👉 [**skincare-products-skill.7z**](https://github.com/mochenxin2025-png/skincare-products-skill/releases/download/v2.1/skincare-products-skill.7z)
+*(使用 7-Zip 解压到 `$HERMES_HOME/skills/`)*
+
+---
+
 ## 🚀 使用方法
 
 ### 作为 Reasonix Code / Claude Code 技能

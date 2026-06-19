@@ -163,6 +163,47 @@ No two product types share the same scoring dimensions. Cleansers prioritize saf
 
 ---
 
+## ⬇️ Download & Install
+
+### Option 1: Clone via Git (recommended)
+
+```bash
+git clone https://github.com/mochenxin2025-png/skincare-products-skill.git
+cd skincare-products-skill
+```
+
+### Option 2: Download ZIP
+
+[![Download ZIP](https://img.shields.io/badge/Download-ZIP-brightgreen?style=for-the-badge)](https://github.com/mochenxin2025-png/skincare-products-skill/archive/refs/heads/master.zip)
+
+Click the badge above or manually: **Code → Download ZIP** on the GitHub repo page, then extract the archive.
+
+### Option 3: Install as a Hermes Agent Skill
+
+If you're using [Hermes Agent](https://hermes-agent.nousresearch.com), you can install this skill in one command:
+
+```bash
+# Make sure the hermes-agent skill is loaded, then:
+hermes skills install skincare-products-skill
+```
+
+Or install from local directory:
+
+```bash
+cp -r /path/to/skincare-products-skill $HERMES_HOME/skills/
+# Verify:
+hermes skills list | grep skincare
+```
+
+### Option 4: Hermes Skill Archive (`.7z`)
+
+Download the portable archive for offline installation:
+
+👉 [**skincare-products-skill.7z**](https://github.com/mochenxin2025-png/skincare-products-skill/releases/download/v2.1/skincare-products-skill.7z)
+*(Extract to `$HERMES_HOME/skills/` using 7-Zip)*
+
+---
+
 ## 🚀 Usage
 
 ### As a Reasonix Code / Claude Code Skill
