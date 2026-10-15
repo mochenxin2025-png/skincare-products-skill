@@ -182,7 +182,7 @@ skincare-products-skill/
 │   ├── confidence-engine-spec.md      #   Harmonic mean formula + fallback linkage
 │   ├── input-parsing-spec.md          #   OCR correction + INCI normalization + CJK language tables
 │   ├── output-format-spec.md          #   Markdown template + JSON API schema
-│   ├── evidence-citation-spec.md      #   60 curated references (28 with DOI)
+│   ├── evidence-citation-spec.md      #   60 curated references (38 with DOI)
 │   ├── body-wash-spec.md              #   Rinse-off logic, surfactant evaluation, experience ingredients
 │   ├── body-lotion-spec.md            #   Four functional systems, KP evaluation, barrier-friendly ingredients
 │   ├── shampoo-spec.md                #   Anti-fungal hierarchy, seborrheic dermatitis pathogenesis
@@ -245,7 +245,7 @@ No two product types share the same scoring dimensions. Cleansers prioritize saf
 | Ingredient Ontology Map | 375 INCI names |
 | Database Entries (Bootstrap + Extended) | 241 |
 | Ingredient Interactions | 32 rules |
-| Curated Literature References | 60 (28 with DOI) |
+| Curated Literature References | 60 (38 with DOI) |
 | Product Categories | 10 |
 | Skin Types / Conditions | 12 |
 | Weight Profiles | 8 |

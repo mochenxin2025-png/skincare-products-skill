@@ -63,7 +63,7 @@ Examples:
 
 ## 4. Curated Reference Library
 
-> **DOI status** — the 28 DOIs below were verified against Crossref (first author + year + title all consistent). The remaining 32 entries carry no DOI because the source is a regulatory opinion (SCCS), a trade journal, or an article Crossref does not index. For those, cite with a PubMed search link per §9.7 — never construct an identifier.
+> **DOI status** — the 38 DOIs below were verified against Crossref (first author + year + title all consistent). The remaining 22 entries carry no DOI because the source is a regulatory opinion (SCCS), a trade journal, or an article Crossref does not index. For those, cite with a PubMed search link per §9.7 — never construct an identifier.
 
 The following references are the most commonly cited in cosmetic ingredient analysis. This library should be embedded in the Agent or accessible via database query.
 
@@ -84,7 +84,7 @@ The following references are the most commonly cited in cosmetic ingredient anal
 | VITC-01 | Pinnell et al., Dermatol Surg (2001) | 10.1046/j.1524-4725.2001.00264.x |
 | VITC-02 | Lin et al., J Invest Dermatol (2003) | — |
 | VITC-03 | Lin et al., J Invest Dermatol (2005) | 10.1111/j.0022-202x.2005.23768.x |
-| VITC-04 | Farris PK, Dermatol Surg (2005) | — |
+| VITC-04 | Farris PK, Dermatol Surg (2005) | 10.1111/j.1524-4725.2005.31725 |
 | VITC-05 | Al-Niaimi & Chiang, J Clin Aesthet Dermatol (2017) | — |
 | VITC-06 | Telang PS, Indian Dermatol Online J (2013) | 10.4103/2229-5178.110593 |
 
@@ -95,7 +95,7 @@ The following references are the most commonly cited in cosmetic ingredient anal
 | RET-01 | Kligman et al., J Am Acad Dermatol (1998) | — |
 | RET-02 | Mukherjee et al., Clin Interv Aging (2006) | 10.2147/ciia.2006.1.4.327 |
 | RET-03 | Kang et al., Arch Dermatol (1995) | — |
-| RET-04 | Varani et al., J Invest Dermatol (2000) | — |
+| RET-04 | Varani et al., J Invest Dermatol (2000) | 10.1046/j.1523-1747.2000.00902.x |
 | RET-05 | Babamiri & Nassab, Aesthet Surg J (2010) | 10.1177/1090820x09360704 |
 
 ### 4.4 Bakuchiol
@@ -110,10 +110,10 @@ The following references are the most commonly cited in cosmetic ingredient anal
 | ID | Citation (Light) | DOI |
 | --- | --- | --- |
 | AHA-01 | Green et al., Dermatol Surg (2001) | — |
-| AHA-02 | Ditre et al., J Am Acad Dermatol (1996) | — |
-| AHA-03 | Smith WP, J Am Acad Dermatol (1996) | — |
+| AHA-02 | Ditre et al., J Am Acad Dermatol (1996) | 10.1016/s0190-9622(96)80110-1 |
+| AHA-03 | Smith WP, J Am Acad Dermatol (1996) | 10.1016/s0190-9622(96)90602-7 |
 | AHA-04 | Bernstein et al., Dermatol Surg (2001) | — |
-| AHA-05 | Thibault et al., Dermatol Surg (1998) | — |
+| AHA-05 | Thibault et al., Dermatol Surg (1998) | 10.1111/j.1524-4725.1998.tb04209.x |
 
 ### 4.6 Salicylic Acid (BHA)
 
@@ -151,8 +151,8 @@ The following references are the most commonly cited in cosmetic ingredient anal
 
 | ID | Citation (Light) | DOI |
 | --- | --- | --- |
-| SUN-01 | Chatelain & Gabard, Photochem Photobiol (2001) | — |
-| SUN-02 | Sayre et al., Photochem Photobiol (2005) | — |
+| SUN-01 | Chatelain & Gabard, Photochem Photobiol (2001) | 10.1562/0031-8655(2001)074<0401:pobmaa>2.0.co;2 |
+| SUN-02 | Sayre et al., Photochem Photobiol (2005) | 10.1111/j.1751-1097.2005.tb00207.x |
 | SUN-03 | Bonda C, Cosmet Toiletries (2008) | — |
 | SUN-04 | Nash & Tanner, J Clin Aesthet Dermatol (2014) | — |
 | SUN-05 | Krause et al., Int J Androl (2012) | 10.1111/j.1365-2605.2012.01280.x |
@@ -163,8 +163,8 @@ The following references are the most commonly cited in cosmetic ingredient anal
 | ID | Citation (Light) | DOI |
 | --- | --- | --- |
 | PEP-01 | Robinson et al., J Cosmet Dermatol (2008) | — |
-| PEP-02 | Robinson et al., Int J Cosmet Sci (2005) | — |
-| PEP-03 | Lupo & Cole, Dermatol Ther (2007) | — |
+| PEP-02 | Robinson et al., Int J Cosmet Sci (2005) | 10.1111/j.1467-2494.2005.00261.x |
+| PEP-03 | Lupo & Cole, Dermatol Ther (2007) | 10.1111/j.1529-8019.2007.00148.x |
 | PEP-04 | Blanes-Mira et al., Int J Cosmet Sci (2002) | 10.1046/j.1467-2494.2002.00153.x |
 
 ### 4.12 Barrier & Moisturization
@@ -172,7 +172,7 @@ The following references are the most commonly cited in cosmetic ingredient anal
 | ID | Citation (Light) | DOI |
 | --- | --- | --- |
 | BAR-01 | Rawlings & Harding, Dermatol Ther (2004) | 10.1111/j.1396-0296.2004.04s1005.x |
-| BAR-02 | Rawlings et al., J Invest Dermatol (1994) | — |
+| BAR-02 | Rawlings et al., J Invest Dermatol (1994) | 10.1111/1523-1747.ep12398620 |
 | BAR-03 | Loden M, Br J Dermatol (2003) | — |
 | BAR-04 | Proksch et al., Int J Dermatol (2014) | — |
 
@@ -203,7 +203,6 @@ The following references are the most commonly cited in cosmetic ingredient anal
 | PRE-05 | de Groot & Veenstra, Contact Dermatitis (2010) | — |
 
 ---
-
 ## 5. Citation → Evidence Level Mapping
 
 | Evidence Level (M17) | Expected Citation Type | Example |
