@@ -228,7 +228,7 @@ hermes skills list | grep skincare
 
 下载便携式归档包用于离线安装：
 
-👉 [**skincare-products-skill.7z**](https://github.com/mochenxin2025-png/skincare-products-skill/releases/download/v2.1/skincare-products-skill.7z)
+👉 [**skincare-products-skill.7z**](https://github.com/mochenxin2025-png/skincare-products-skill/releases/download/v2.2/skincare-products-skill.7z)
 *(使用 7-Zip 解压到 `$HERMES_HOME/skills/`)*
 
 ---
