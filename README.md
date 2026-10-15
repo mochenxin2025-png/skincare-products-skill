@@ -195,7 +195,7 @@ skincare-products-skill/
     └── obsidian/                       #   Obsidian-formatted formula cards
 ```
 
-> **Design principle**: Progressive disclosure. Only `SKILL.md` is always loaded (~410 lines). The 16 reference files are loaded on demand when the agent needs ingredient data, interaction rules, or category-specific evaluation logic.
+> **Design principle**: Progressive disclosure. Only `SKILL.md` is always loaded (~435 lines). The 16 reference files are loaded on demand when the agent needs ingredient data, interaction rules, or category-specific evaluation logic.
 
 ---
 
@@ -342,6 +342,11 @@ In Citation Mode, five non-negotiable rules govern evidence presentation:
 This product is likely suitable for oily acne-prone skin as a maintenance serum.
 Primary active is azelaic acid with niacinamide as support. Low irritation risk
 but not a "strong" acne treatment — better for PIH management.
+
+━━━ ② Problem Classification ━━━
+Class: Efficacy (post-inflammatory hyperpigmentation, maintenance use)
+Source tier: 3–4 (systematic reviews, clinical trials)
+Out of scope: whether this specific product has been clinically validated
 
 ━━━ ③ Evidence-Supported Claims ━━━
 - Azelaic acid has clear evidence for mild-to-moderate acne and post-inflammatory

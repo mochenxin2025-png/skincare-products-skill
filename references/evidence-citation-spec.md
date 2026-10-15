@@ -2,11 +2,13 @@
 
 ## Overview
 
-This specification defines how scientific evidence is cited in cosmetic analysis reports. It supports two citation modes and a curated reference library covering the most commonly cited cosmetic ingredients.
+This specification defines how scientific evidence is cited in cosmetic analysis reports. It supports two citation **format** modes (§1) plus a curated reference library covering the most commonly cited cosmetic ingredients. The Citation **Mode** pipeline — question classification through to a cited 5-section answer — is §9.
 
 ---
 
-## 1. Citation Modes
+## 1. Citation Format Modes (Light / Full)
+
+Output formatting only. Not to be confused with Citation Mode (§9), which selects *whether* a cited answer is produced at all.
 
 | Mode | Use Case | Format |
 | --- | --- | --- |
@@ -276,3 +278,105 @@ API mode:    { "evidence_level": "D", "reference": null, "reference_note": "Text
 ```
 
 Never fabricate a reference. An honest "no specific study" is preferable to a hallucinated citation.
+
+---
+
+## 9. Citation Mode Pipeline (v2.2)
+
+Citation Mode answers efficacy, safety, disease, and myth questions. It is not a product report — it is an evidence answer. Selected in `SKILL.md` Step 0.
+
+### 9.1 Problem Classification
+
+| Class | Example | Primary source tier (§9.3) |
+| --- | --- | --- |
+| Efficacy | "Does azelaic acid help with post-acne marks?" | 3–4 |
+| Safety | "Is salicylic acid safe during pregnancy?" | 1 |
+| Disease | "Can niacinamide treat rosacea?" | 2–4 |
+| Myth | "Is it true that skin absorbs best at 10pm?" | 3–5 + explicit refutation |
+| Product-specific | "Is this product clinically validated?" | usually unanswerable — Rule 1 |
+
+Class is fixed before any claim is written. An unclassifiable question is not answered in Citation Mode — it is returned with a request for narrowing.
+
+### 9.2 Claim Extraction
+
+Decompose the question into atomic claims. One claim = one verifiable proposition.
+
+- "Does A + B help with C?" → C1: A helps C; C2: B helps C; C3: A + B outperforms either alone
+- Never merge claims; never extract a claim the user did not make
+- Each claim receives an ID (C1, C2, …) reused in §9.6
+
+### 9.3 Evidence Routing
+
+Route every claim to its source tier **before** searching the library. Route by class, not by convenience.
+
+| Tier | Sources | Legitimate use |
+| --- | --- | --- |
+| 1 — Regulatory | SCCS opinions, CIR reports, FDA, NMPA, EU Annexes | Safety, concentration limits, pregnancy, long-term use |
+| 2 — Guidelines | AAD, EADV, JDA, EDF, national dermatology guidelines | Treatment positioning, disease management |
+| 3 — Systematic reviews / meta-analyses | Cochrane, PubMed | Efficacy magnitude |
+| 4 — Clinical trials | RCTs, in vivo human | Human efficacy claims |
+| 5 — In vitro / mechanistic | Cell, ex vivo, model membrane | Mechanism only — never efficacy (Rule 2) |
+| 6 — Textbook / expert opinion | Standard references | Background only |
+| 7 — Marketing / unsourced | — | Not citable (Rule 5) |
+
+A safety claim load-bearing on tiers 3–5 instead of tier 1 is a routing error (Rule 4).
+
+Cross-references for routing: concentration ceilings → `references/bootstrap-database.md` §5; ingredient identity and class → `references/ingredient-ontology-map.md`; ingredient pairs → `references/interaction-rules.md`; the curated library's entries carry own evidence levels (§4, §5).
+
+### 9.4 Evidence Ranking
+
+Within a tier, rank by study design → sample size → recency → independence from the product's manufacturer. Conflicts of interest are kept but flagged (§6.3). Disagreeing results are both reported, with the contradiction stated — never averaged into a false consensus.
+
+### 9.5 Evidence Card
+
+Every claim is resolved into a card before any prose is written.
+
+| Field | Content |
+| --- | --- |
+| Claim ID | C1 |
+| Claim | the proposition, as the user stated it |
+| Verdict | Supported / Partially supported / Not supported / Insufficient evidence |
+| Evidence level | A–E (M17) |
+| Source tier | 1–7 (§9.3) |
+| Key finding | one sentence; quantitative if the source gives a number |
+| Caveat | what the evidence does **not** show |
+| Citation | `[C1]` with DOI or link (§9.7) |
+
+"Not supported" and "Insufficient evidence" are valid, expected verdicts. A card with no caveat usually means the source was not read carefully.
+
+### 9.6 Five-Section Output
+
+| # | Section | Content |
+| --- | --- | --- |
+| ① | Summary / Core Answer | Direct answer in ≤3 sentences. No citation markers here, no hedging padding |
+| ② | Problem Classification | Class from §9.1, source tier used, and what was **not** asked |
+| ③ | Evidence-Supported Claims | One bullet per claim: ID + evidence level + caveat |
+| ④ | Inference & Uncertainty | Three-class separation: literature-supported / formulation-inferred / uncertain; states explicitly what the evidence cannot answer |
+| ⑤ | References / Sources | One entry per citation: `[Cn] Author, Journal (Year)` + link + tier |
+
+Output-level constraints:
+
+- Every ID used in ③ appears in ⑤; every entry in ⑤ is cited in ③
+- Product-specific validation questions land in ④, never in ③ (Rule 1)
+- If ③ is empty, say so plainly and let ④ carry the answer
+- No numeric score in this mode — scoring belongs to Product Analysis mode
+
+Layout template: `references/output-format-spec.md` §6.
+
+### 9.7 Link Format
+
+| Situation | Link |
+| --- | --- |
+| DOI known | `https://doi.org/<doi>` |
+| DOI unknown, author + year + title known | PubMed search: `https://pubmed.ncbi.nlm.nih.gov/?term=<author>+<year>+<title keywords>` |
+| Regulatory document | SCCS / CIR / FDA / NMPA document page or document number |
+| No source found | no link — and state "no direct evidence" |
+
+Never construct a DOI, PMID, or document number that was not read. A PubMed **search** link is honest; an invented DOI is not.
+
+### 9.8 Operating Constraints
+
+- Confidence still applies (`references/confidence-engine-spec.md`). If the evidence base is too thin to answer, return conservative mode and say so rather than asserting
+- Safety questions are never carried by efficacy evidence as the load-bearing source (Rule 4)
+- The curated library (§4) is a starting point, not a ceiling — its 57 entries cover the most common ingredients, not all of them
+- Determinism: identical question + identical library → identical card verdicts

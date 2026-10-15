@@ -498,7 +498,10 @@ Based on the limited available data:
 ## 4. Output Selection Logic
 
 ```
-IF target is "api" OR "json":
+IF mode == "citation"  (SKILL.md Step 0 — efficacy / safety / disease / myth question):
+  → Output Citation Mode format (§6)
+  → No numeric score, no ⑬ Overall Score / ⑭ Conclusion
+ELSE IF target is "api" OR "json":
   → Output JSON format (§2)
 ELSE IF target is "markdown" OR "report" OR not specified:
   → Output Markdown format (§1)
@@ -530,3 +533,59 @@ All human-readable strings in the output template are candidates for i18n:
 | Recommendation | Recommendation | 建议 |
 
 Full i18n mappings are in a separate locale file (future).
+
+---
+
+## 6. Citation Mode Output (v2.2)
+
+Used when Citation Mode is selected (`SKILL.md` Step 0). This **replaces** the 14-section product report — it is not appended to it. Pipeline and field definitions: `references/evidence-citation-spec.md` §9.
+
+### 6.1 Markdown Template
+
+```markdown
+━━━ ① Summary / Core Answer ━━━
+<direct answer, ≤3 sentences, no citation markers>
+
+━━━ ② Problem Classification ━━━
+Class: <Efficacy | Safety | Disease | Myth | Product-specific>
+Source tier: <1–7>
+Out of scope: <what was not asked, or cannot be answered>
+
+━━━ ③ Evidence-Supported Claims ━━━
+- <claim> [C1][C2] — evidence <A–E>. <caveat>
+- <claim> [C3] — evidence <A–E>. <caveat>
+
+━━━ ④ Inference & Uncertainty ━━━
+Literature-supported: <…>
+Formulation-inferred: <…>
+Uncertain: <…>
+
+━━━ ⑤ References / Sources ━━━
+[C1] <Author, Journal (Year)> — tier <n>
+     <https://doi.org/… or PubMed search link>
+[C2] <regulatory document> — tier 1
+     <link>
+```
+
+### 6.2 Hard Constraints
+
+- ③ and ⑤ must agree in both directions: every ID cited in ③ has an entry in ⑤, and every entry in ⑤ is cited in ③
+- ③ carries claim IDs only; ① carries none
+- No numeric score, no weight table, no ⑬ / ⑭ sections
+- An empty ③ states "no direct clinical evidence" plainly; ④ then carries the answer
+- Link rules: `references/evidence-citation-spec.md` §9.7 — a constructed DOI is a fabrication
+
+### 6.3 JSON Form
+
+`report.evidence.claims[]` (§2.1) is the machine-readable body of ③ — it is reused unchanged, with `source_type` set from the §9.3 tier. Citation Mode adds two keys under `report`:
+
+| Key | Section | Content |
+| --- | --- | --- |
+| `classification` | ② | `{ "class": "efficacy", "source_tier": 3, "out_of_scope": "…" }` |
+| `uncertainty` | ④ | `{ "literature_supported": [], "formulation_inferred": [], "uncertain": [] }` |
+
+`report.scoring.total` MUST be `null` in Citation Mode — a number there means the mode was mis-selected.
+
+> **Known drift**: `assets/report-schema.json` does not yet carry every property in §2.1
+> (`support_system`, `marketing`, `interaction_analysis` are absent, and neither are the two
+> keys above). The schema asset lags the prose spec; treat §2.1 and §6.3 as authoritative.

@@ -9,6 +9,10 @@ description: >-
   this serum", "what do you think of this moisturizer", "compare these two products", "analyze
   this cleanser", "analyze this body wash", "analyze this shampoo", "is this body lotion good", "analyze this conditioner", "evaluate this hair mask", "analyze this lip balm", "is this lip balm good",
   or any cosmetic/skincare product photo or ingredient text.
+  Also answers efficacy, safety, and disease questions about cosmetic ingredients with cited
+  evidence (Citation Mode) — "does azelaic acid help with post-acne marks", "is salicylic acid
+  safe during pregnancy", "can I use niacinamide if I have rosacea", "is it true that skin
+  absorbs best at 10pm".
 ---
 
 # Cosmetic Analysis Agent
@@ -26,6 +30,8 @@ Automatically activate when:
 - User requests cosmetic product comparison
 - User requests formulation or formula architecture analysis
 - User requests product scoring or rating
+- User asks an efficacy, safety, or disease question about a cosmetic ingredient ("does X help with Y", "is X safe during pregnancy")
+- User asks whether a common skincare claim is true (myth-check)
 
 ## Core Pipeline
 
@@ -36,6 +42,27 @@ Input → Validation → Ontology Mapping → Database Query
 → Interaction Analysis → Mechanism Analysis → Architecture Analysis
 → Risk Analysis → Skin Adaptation → Confidence → Scoring → Output
 ```
+
+## Step 0: Mode Selection (v2.2)
+
+Select the mode before any other step. The two modes share the ontology, databases, and evidence grades but produce different outputs.
+
+| Input | Mode | Pipeline |
+| --- | --- | --- |
+| Ingredient list, product photo, "analyze / review / compare / score this product" | **Product Analysis** | Steps 1–10 below |
+| Efficacy, safety, disease, or myth question — "does X help with Y", "is X safe during pregnancy", "is it true that …" | **Citation Mode** | `references/evidence-citation-spec.md` §9 |
+
+Mixed input (a product photo *plus* a safety question) → Product Analysis, and answer the safety question inside section ⑧ with citation support.
+
+### Citation Discipline (non-negotiable in Citation Mode)
+
+1. **No false correspondence** — never cite an ingredient study as proof that a specific product is clinically validated
+2. **No low-level evidence as clinical proof** — in vitro ≠ human efficacy; mechanistic citations must carry explicit caveats
+3. **Three-class separation** — separate literature-supported, formulation-inferred, and uncertain conclusions
+4. **Safety → safety sources** — pregnancy, long-term use, comedogenicity route to SCCS / CIR / FDA / NMPA, not efficacy literature
+5. **No evidence = say so** — "No direct clinical evidence" always beats a hallucinated citation
+
+Citation Mode produces **no numeric score**. For the full pipeline (problem classification → claim extraction → evidence routing → ranking → evidence card → 5-section output), read `references/evidence-citation-spec.md` §9.
 
 ## Step 1: Validation (M14)
 
