@@ -9,6 +9,7 @@ description: >-
   this serum", "what do you think of this moisturizer", "compare these two products", "analyze
   this cleanser", "analyze this body wash", "analyze this shampoo", "is this body lotion good", "analyze this conditioner", "evaluate this hair mask", "analyze this lip balm", "is this lip balm good",
   or any cosmetic/skincare product photo or ingredient text.
+  Also covers exfoliants and acid peels, toners, and face masks.
   Also answers efficacy, safety, and disease questions about cosmetic ingredients with cited
   evidence (Citation Mode) — "does azelaic acid help with post-acne marks", "is salicylic acid
   safe during pregnancy", "can I use niacinamide if I have rosacea", "is it true that skin
@@ -27,6 +28,9 @@ Automatically activate when:
 - User requests skincare product analysis, evaluation, or review
 - User asks for ingredient explanation or biological mechanism
 - User requests sunscreen, cleanser, serum, moisturizer, shampoo, body wash, body lotion, hair conditioner, lip balm, or anti-acne product evaluation
+- User requests exfoliant, acid toner, peel, or scrub evaluation
+- User requests toner, freshener, or essence evaluation
+- User requests face mask, sheet mask, clay mask, or sleeping mask evaluation
 - User requests cosmetic product comparison
 - User requests formulation or formula architecture analysis
 - User requests product scoring or rating
@@ -97,7 +101,13 @@ Record the database match rate (D) for confidence calculation.
 
 ## Step 4: First Principle & Product Category
 
-Identify the biological objective from the category:
+Identify the biological objective from the category.
+
+**Category precedence** — a product is assigned to exactly ONE category, by primary intent. When two categories could claim it, resolve in this order:
+
+`Exfoliation > Acne Serum > Mask > Toner > Moisturizer`
+
+Examples: an acid toner → Exfoliation; a peel-off mask → Exfoliation; a sleeping mask → Moisturizer; a compressed sheet soaked in toner → Mask. Each category spec repeats the boundaries that concern it.
 
 | Category | First Principle |
 | --- | --- |
@@ -111,6 +121,9 @@ Identify the biological objective from the category:
 | Hair Conditioner | Physical surface modification of dead keratin fibers — NOT biological repair. Cationic adsorption + silicone film + friction reduction |
 | Lip Balm | Occlusive barrier product for semi-mucous membrane. Reduce TEWL, protect damaged barrier, prevent fissures. NOT a "hydration" problem — lips cannot self-moisturize (no sebaceous glands) |
 | Anti-Acne Serum | Reduce acne lesions through multiple complementary pathways: antibacterial (BPO, azelaic acid), pore-疏通 (salicylic acid), anti-inflammatory (niacinamide, azelaic acid), sebum regulation (niacinamide, retinoids), and keratinocyte turnover (retinoids, BHA). NOT a one-dimensional problem — require multi-target strategy |
+| Exfoliation | Accelerate desquamation of corneocytes to remove excess stratum corneum WITHOUT crossing into barrier injury — the width of the keratolysis / barrier-damage window is the product quality question |
+| Toner | Deliver water-soluble actives and modulate surface state (hydration, pH, sebum perception) with minimal residue. A vehicle category, not a treatment category — its ceiling is what a water-only vehicle can deliver |
+| Mask | Exploit contact time × occlusion to raise delivered dose beyond what an open leave-on reaches. The only mechanism advantage this category has — and it amplifies irritants exactly as much as actives |
 
 ## Step 5: Analysis Engines (L2–L7)
 
@@ -165,13 +178,15 @@ For the curated reference library (60 citations, 38 with DOI), read `references/
 
 ### Weight Profiles (auto-loaded by product category)
 
-| Dimension | Default | Cleanser | Sunscreen | Serum | Moisturizer | Infant | Anti-Acne Serum |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| Core Effectiveness | 40 | 30 | 35 | 35 | 30 | 15 | 35 |
-| Architecture | 25 | 25 | 25 | 20 | 25 | 20 | 15 |
-| Safety | 15 | 30 | 20 | 20 | 20 | 35 | 25 |
-| Support System | 10 | 10 | 15 | 15 | 15 | 15 | 15 |
-| Skin Adaptation | 10 | 5 | 5 | 10 | 10 | 15 | 10 |
+| Dimension | Default | Cleanser | Sunscreen | Serum | Moisturizer | Infant | Anti-Acne Serum | Exfoliation | Toner | Mask |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Core Effectiveness | 40 | 30 | 35 | 35 | 30 | 15 | 35 | 35 | 30 | 35 |
+| Architecture | 25 | 25 | 25 | 20 | 25 | 20 | 15 | 15 | 30 | 25 |
+| Safety | 15 | 30 | 20 | 20 | 20 | 35 | 25 | 30 | 25 | 25 |
+| Support System | 10 | 10 | 15 | 15 | 15 | 15 | 15 | 10 | 10 | 10 |
+| Skin Adaptation | 10 | 5 | 5 | 10 | 10 | 15 | 10 | 10 | 5 | 5 |
+
+`Infant` is a **population modifier, not a product category** — apply it on top of the base category (a baby cream is Moisturizer + Infant, a baby wash is Body Wash + Infant). It raises Safety to 35 and lowers Core Effectiveness to 15 to reflect a near-zero tolerance for irritation.
 
 **Body Lotion** (added row):
 
@@ -369,6 +384,38 @@ Lower-priority sources may supplement but never override higher-priority sources
 - **Marketing traps**: "Detox", "Pore-tightening", "Oil-control miracle" — no mechanism → flag as unsupported. Charcoal in acne serums → no clinical evidence; marketing only → [M]
 - **For full rules, read `references/acne-serum-spec.md`**
 
+### Exfoliation (Acid Peels, Scrubs, Keratolytics)
+- **pH decides, concentration only reports.** Acids act in free-acid form; a high percentage neutralised to pH > 4 is largely inert. No declared pH → derive a suspicion, never a value
+- AHA effective ≤ 4.0 (formulated 3.5–4.0) · BHA 3.0–4.0 · PHA 3.5–4.5 · urea is not an acid (≥ 10% keratolytic, < 10% humectant)
+- **Ceilings (China, 《化妆品安全技术规范》2015)**: total α-hydroxy acids + salts/esters ≤ 6.0%, pH ≥ 3.5, sunscreen labelling required; salicylic acid ≤ 2.0% leave-on / rinse-off skin, ≤ 3.0% rinse-off hair, ≤ 0.5% as preservative, not for under-3s. Above the ceiling → Safety PS −0.30 and flag as out-of-regime, never score as an ordinary cosmetic
+- **No concentration and no pH → no numeric score.** Conservative mode
+- Rinse-off formats are contact-time limited: an acid in a cleanser is largely cosmetic
+- Sun sensitivity rises after AHA use — a recommendation without a sunscreen statement is incomplete
+- "换肤" / "刷酸" / "peel" claims imply a medical action → flag; a cosmetic may not claim one
+- "搓泥"/rolling gels are polymer pilling, not exfoliated skin; charcoal and plant enzymes without declared activity are not evidence of keratolysis
+- For full rules, read `references/exfoliation-spec.md`
+
+### Toner (Freshener, Essence, Essence-Toner)
+- **Terminology first** — 化妆水/爽肤水/化粧水/essence/toner = watery leave-on; 乳液 and the US/EU "lotion" = an emulsion → Moisturizer. Ambiguous input: ask texture, do not guess
+- A vehicle category: score against what a water-only vehicle can deliver, never against a serum
+- Architecture carries 30 — solvent system, co-solvents, preservation adequacy and pH are most of the product
+- **Water-based leave-on + single or absent preservative → flag** (standing framework rule; most common in this category)
+- Ethanol in the first five positions of an astringent → Safety PS −0.15, flag for dry/sensitive/barrier-damaged skin
+- "Second cleansing" needs a surfactant; "pore tightening" and "deep hydration" have no mechanism → flag
+- Lipophilic actives in a purely aqueous formula without a co-solvent are not delivered — reduce Core PS and say why
+- For full rules, read `references/toner-spec.md`
+
+### Mask (Sheet, Clay, Hydrogel)
+- **Contact mode first**: rinsed (clay, 10–20 min), left on (sheet, 15–30 min), peeled (→ Exfoliation), overnight (→ Moisturizer). Instructions unknown → ask
+- The mechanism is contact time × occlusion — real, but it raises the dose of everything in the formula
+- **Occlusion amplification**: fragrance, high ethanol, or a potent preservative system in a sheet/hydrogel mask → Safety PS −0.15 each, and recommend rinsing after use
+- Sheet-mask liquid is typically 20–30 g held 15–30 min — a short, high-dose exposure, not a light mist
+- Wash-off clay: contact time caps the effect; ingredients in the last third are trace → `[M]`; remove before the mask dries
+- **Jar packaging + weak preservation → flag** (mask-specific hygiene risk); single-use sachets are low risk
+- "Detox", "pore extraction", "medical-grade", "daily masking", "leave it on longer" → flag as unsupported
+- Sheet-mask hydration is stratum corneum water content — it peaks during use and falls back within hours; it is not dermal hydration
+- For full rules, read `references/mask-spec.md`
+
 ## Separation of Concerns
 
 ```
@@ -403,6 +450,9 @@ Load these as needed — not all at once:
 | `references/hair-conditioner-spec.md` | Product identified as hair conditioner, hair mask, or leave-in | Cationic/silicone/fatty alcohol systems, dead keratin constraints |
 | `references/lip-balm-spec.md` | Product identified as lip balm, lip butter, lip mask, or SPF lip balm | Occlusive hierarchy, menthol/camphor danger, semi-mucous membrane |
 | `references/acne-serum-spec.md` | Product identified as anti-acne serum / acne treatment | Anti-acne ingredient hierarchy, comedogenicity evaluation protocol, multi-pathway analysis rules |
+| `references/exfoliation-spec.md` | Product identified as exfoliant / acid peel / scrub / keratolytic | pH decisiveness, regulatory ceilings by market, contact-mode dose model, over-exfoliation risk |
+| `references/toner-spec.md` | Product identified as toner / freshener / essence | Cross-language terminology map, sub-type split, water-vehicle architecture rules |
+| `references/mask-spec.md` | Product identified as face mask / sheet mask / clay mask | Format classes, occlusion amplification rule, mask-specific hygiene risk |
 | `references/framework-full.md` | Understanding full framework rationale | Complete L0–L12 + M13–M22 original specification |
 | `assets/report-schema.json` | JSON API output mode | JSON Schema for machine-consumable reports |
 

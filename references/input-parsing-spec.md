@@ -268,6 +268,48 @@ Non-INCI common names must be mapped to INCI before entering the pipeline:
 
 ---
 
+### 4.5 Product-Type Term Mapping (Cross-Language)
+
+Before ingredient parsing, map the **product-type term** the user used to the canonical category. This is the single most common cause of mis-classification, because the same word names different products in different markets.
+
+| User term | Language | Canonical category |
+| --- | --- | --- |
+| 化妆水 / 爽肤水 / 柔肤水 / 收敛水 / 精华水 / 高机能水 | 中文 | **Toner** |
+| 乳 液 | 中文 | **Moisturizer** |
+| 面霜 / 霜 / 凝霜 / 乳霜 | 中文 | **Moisturizer** |
+| 精华 / 精华液 / 安瓶 / 原液 | 中文 | **Serum** |
+| 防晒 / 防晒霜 / 防晒乳 / 隔离 | 中文 | **Sunscreen** |
+| 洁面 / 洗面奶 / 卸妆洁面 | 中文 | **Cleanser** |
+| 卸妆 / 卸妆油 / 卸妆水 / 卸妆膏 | 中文 | ⚠️ **Not covered** — no Makeup Remover category exists; state the gap rather than forcing a category |
+| 沐浴露 / 沐浴乳 | 中文 | **Body Wash** |
+| 身体乳 / 身体霜 / 身体黄油 | 中文 | **Body Lotion** |
+| 洗发水 / 洗发露 | 中文 | **Shampoo** |
+| 护发素 / 发膜 / 免洗护发 | 中文 | **Hair Conditioner** |
+| 润唇膏 / 唇膜 / 唇油 | 中文 | **Lip Balm** |
+| 去角质 / 刷酸水 / 焕肤精华 / 磨砂膏 / 撕拉膜 | 中文 | **Exfoliation** |
+| 面膜 / 贴片面膜 / 泥膜 / 面泥 / 水洗面膜 | 中文 | **Mask** |
+| 祛痘精华 / 痘痘膏 / 抗痘 | 中文 | **Anti-Acne Serum** |
+| 化粧水 / ローション | 日文 | **Toner** |
+| 乳液 / エマルジョン | 日文 | **Moisturizer** |
+| 美容液 / セラム | 日文 | **Serum** |
+| 日焼け止め | 日文 | **Sunscreen** |
+| 洗顔料 | 日文 | **Cleanser** |
+| パック / シートマスク / 泥パック | 日文 | **Mask** |
+| ピーリング / 角質ケア | 日文 | **Exfoliation** |
+| Lotion | US / EU | **Moisturizer** (an emulsion) |
+| Lotion | JP-brand English | **Toner** (watery) — see the rule below |
+| Toner / freshener / astringent / clarifying lotion / essence | English | **Toner** |
+| Cream / gel cream | English | **Moisturizer** |
+| Serum / ampoule / treatment essence | English | **Serum** |
+| Mask / sheet mask / clay mask / sleeping mask | English | **Mask** (sleeping → Moisturizer, peel-off → Exfoliation) |
+| Scrub / peel / acid toner / exfoliant | English | **Exfoliation** |
+
+**Disambiguation rule for `lotion`:** the term is genuinely ambiguous — it means a watery product in Japanese-market English and a fluid emulsion in US/EU English. **Do not resolve it silently.** If the input does not state the texture, ask the user whether the product is watery or fluid/creamy. The two answers land in different categories with different weight profiles.
+
+**Disambiguation rule for 面膜 (mask):** sleeping masks and peel-off masks are routed out of the Mask category (to Moisturizer and Exfoliation respectively). If the instructions for use are not available, ask what the user does with the product — rinse, peel, or leave on.
+
+---
+
 ## 5. Ingredient List Quality Assessment
 
 After parsing, evaluate the input quality to determine M14 Validation Status:

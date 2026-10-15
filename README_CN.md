@@ -5,7 +5,7 @@
 [![版本](https://img.shields.io/badge/版本-2.2-blue)](https://github.com)
 [![许可证](https://img.shields.io/badge/许可证-MIT-green)](https://github.com)
 [![平台](https://img.shields.io/badge/平台-8-orange)](https://github.com)
-[![品类](https://img.shields.io/badge/产品品类-10-purple)](https://github.com)
+[![品类](https://img.shields.io/badge/产品品类-13-purple)](https://github.com)
 
 [![English](https://img.shields.io/badge/English-blue)](README.md)
 
@@ -20,10 +20,10 @@
 - **15 类成分本体论** — 在功效分析之前进行统一分类
 - **32 条已记录的成分相互作用** — 协同、拮抗和冲突规则
 - **调和平均置信度评分** — 五因素不确定性传播
-- **按品类优化的权重配置** — 10 大产品类型的优化评分维度
+- **按品类优化的权重配置** — 13 大产品类型的优化评分维度
 - **文献引用模式** — 医学/安全问题：问题拆分 (Claim Extraction)、证据路由 (指南/PubMed/法规)、结构化证据卡、5 段式答案 + 可点击来源链接
 
-该框架包含 **738 条结构化数据条目**，涵盖成分数据库、相互作用规则和科学参考文献。
+该框架包含 **744 条结构化数据条目**，涵盖成分数据库、相互作用规则和科学参考文献。
 
 ---
 
@@ -40,7 +40,12 @@
 | 🧴 洗发水 | 去屑、头皮护理、日常洗发 | `shampoo-spec.md` |
 | 💆 护发素 | 冲洗型护发素、发膜、免洗护发素 | `hair-conditioner-spec.md` |
 | 💋 润唇膏 | SPF 润唇膏、唇霜、唇膜 | `lip-balm-spec.md` |
-| 👶 婴幼儿产品 | 宝宝霜、沐浴露、护臀霜 | 内联 |
+| 🧪 抗痘精华 | 祛痘精华、局部点涂 | `acne-serum-spec.md` |
+| 🍋 去角质 | 刷酸水、焕肤精华、磨砂膏、撕拉面膜 | `exfoliation-spec.md` |
+| 💦 化妆水 | 爽肤水、精华水、喷雾 | `toner-spec.md` |
+| 🎭 面膜 | 贴片面膜、泥膜、水凝胶面膜 | `mask-spec.md` |
+
+**婴幼儿产品不是独立品类**——按所属品类评估（通常为保湿霜或沐浴露），叠加 `Infant` 权重档位：安全性提到 35、核心功效降到 15。
 
 另有 **12 种肤质/状况评估**：正常、干性、油性、混合性、敏感、痘痘肌、脂溢性皮炎、玫瑰痤疮、屏障受损、毛周角化、身体痘痘、婴幼儿。
 
@@ -120,13 +125,16 @@ skincare-products-skill/
 │   ├── hair-conditioner-spec.md       #   阳离子/硅油/脂肪醇系统、死角蛋白约束
 │   ├── lip-balm-spec.md               #   封闭剂层级、薄荷醇/樟脑危险、半黏膜
 │   ├── acne-serum-spec.md             #   抗痘成分层级 + 致痘性评估协议
+│   ├── exfoliation-spec.md            #   pH 决定性 + 各地区法规上限 + 接触方式剂量模型
+│   ├── toner-spec.md                  #   跨语言术语映射 + 水相载体架构规则
+│   ├── mask-spec.md                   #   型态分类 + 封闭放大规则 + 面膜卫生风险
 ├── assets/
 │   └── report-schema.json             #   JSON Schema 机器可读报告
 └── platforms/
     └── obsidian/                       #   Obsidian 格式的公式卡片
 ```
 
-> **设计原则**：渐进式披露。仅 `SKILL.md` 始终加载（~435 行）。16 个参考文件按需加载——当智能体需要成分数据、相互作用规则或品类特定评估逻辑时才会读取。
+> **设计原则**：渐进式披露。仅 `SKILL.md` 始终加载（~480 行）。19 个参考文件按需加载——当智能体需要成分数据、相互作用规则或品类特定评估逻辑时才会读取。
 
 ---
 
@@ -177,10 +185,10 @@ skincare-products-skill/
 | 数据库条目（引导 + 扩展） | 241 |
 | 成分相互作用 | 32 条规则 |
 | 精选参考文献 | 60（38 篇含 DOI） |
-| 产品品类 | 10 |
+| 产品品类 | 13 |
 | 肤质/状况 | 12 |
-| 权重配置 | 8 |
-| **结构化数据总计** | **738** |
+| 权重配置 | 11 |
+| **结构化数据总计** | **744** |
 
 ---
 

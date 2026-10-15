@@ -5,7 +5,7 @@
 [![Version](https://img.shields.io/badge/version-2.2-blue)](https://github.com)
 [![License](https://img.shields.io/badge/license-MIT-green)](https://github.com)
 [![Platforms](https://img.shields.io/badge/platforms-8-orange)](https://github.com)
-[![Categories](https://img.shields.io/badge/product%20categories-10-purple)](https://github.com)
+[![Categories](https://img.shields.io/badge/product%20categories-13-purple)](https://github.com)
 
 [![中文](https://img.shields.io/badge/中文-简体-red)](README_CN.md)
 
@@ -20,10 +20,10 @@ This is a **structured agent skill** that transforms any AI assistant into a der
 - **15-category ingredient ontology** — unified classification before any efficacy analysis
 - **32 documented ingredient interactions** — synergy, antagonism, and conflict rules
 - **Harmonic-mean confidence scoring** — five-factor uncertainty propagation
-- **Per-category weight profiles** — 10 product types with optimized scoring dimensions
+- **Per-category weight profiles** — 13 product types with optimized scoring dimensions
 - **Citation Mode** — for medical/safety questions: claim extraction, evidence routing (guidelines/PubMed/regulatory), structured evidence cards, and 5-section answers with clickable source links
 
-The framework contains **738 structured data entries** across ingredient databases, interaction rules, and scientific references.
+The framework contains **744 structured data entries** across ingredient databases, interaction rules, and scientific references.
 
 ---
 
@@ -108,7 +108,12 @@ wget -qO- https://github.com/mochenxin2025-png/skincare-products-skill/archive/r
 | 🧴 Shampoo | Anti-dandruff, scalp care, daily shampoo | `shampoo-spec.md` |
 | 💆 Conditioner | Rinse-off conditioner, hair mask, leave-in | `hair-conditioner-spec.md` |
 | 💋 Lip Balm | SPF lip balm, lip butter, lip mask | `lip-balm-spec.md` |
-| 👶 Infant Products | Baby cream, baby wash, diaper cream | Inline |
+| 🧪 Anti-Acne Serum | Acne serum, spot treatment | `acne-serum-spec.md` |
+| 🍋 Exfoliation | Acid toner, peel, scrub, peel-off mask | `exfoliation-spec.md` |
+| 💦 Toner | Freshener, essence, essence-toner, facial mist | `toner-spec.md` |
+| 🎭 Mask | Sheet mask, clay mask, hydrogel mask | `mask-spec.md` |
+
+**Infant products are not a separate category** — they are evaluated in their base category (usually Moisturizer or Body Wash) under the `Infant` weight profile, which raises Safety to 35 and lowers Core Effectiveness to 15.
 
 Plus **12 skin type/condition assessments**: Normal, Dry, Oily, Combination, Sensitive, Acne-prone, Seborrheic Dermatitis, Rosacea, Barrier-damaged, Keratosis Pilaris, Body Acne, Infant.
 
@@ -189,13 +194,16 @@ skincare-products-skill/
 │   ├── hair-conditioner-spec.md       #   Cationic/silicone/fatty alcohol systems, dead keratin constraints
 │   ├── lip-balm-spec.md               #   Occlusive hierarchy, menthol/camphor danger, semi-mucous membrane
 │   ├── acne-serum-spec.md             #   Anti-acne ingredient hierarchy + comedogenicity protocol
+│   ├── exfoliation-spec.md            #   pH decisiveness + regulatory ceilings + contact-mode dose model
+│   ├── toner-spec.md                  #   Cross-language terminology map + water-vehicle architecture
+│   ├── mask-spec.md                   #   Format classes + occlusion amplification + hygiene risk
 ├── assets/
 │   └── report-schema.json             #   JSON Schema for machine-consumable reports
 └── platforms/
     └── obsidian/                       #   Obsidian-formatted formula cards
 ```
 
-> **Design principle**: Progressive disclosure. Only `SKILL.md` is always loaded (~435 lines). The 16 reference files are loaded on demand when the agent needs ingredient data, interaction rules, or category-specific evaluation logic.
+> **Design principle**: Progressive disclosure. Only `SKILL.md` is always loaded (~480 lines). The 19 reference files are loaded on demand when the agent needs ingredient data, interaction rules, or category-specific evaluation logic.
 
 ---
 
@@ -246,10 +254,10 @@ No two product types share the same scoring dimensions. Cleansers prioritize saf
 | Database Entries (Bootstrap + Extended) | 241 |
 | Ingredient Interactions | 32 rules |
 | Curated Literature References | 60 (38 with DOI) |
-| Product Categories | 10 |
+| Product Categories | 13 |
 | Skin Types / Conditions | 12 |
-| Weight Profiles | 8 |
-| **Total Structured Data** | **738** |
+| Weight Profiles | 11 |
+| **Total Structured Data** | **744** |
 
 ---
 
