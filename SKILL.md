@@ -22,7 +22,7 @@ Automatically activate when:
 - User uploads cosmetic product photo
 - User requests skincare product analysis, evaluation, or review
 - User asks for ingredient explanation or biological mechanism
-- User requests sunscreen, cleanser, serum, moisturizer, shampoo, body wash, body lotion, hair conditioner, or lip balm evaluation
+- User requests sunscreen, cleanser, serum, moisturizer, shampoo, body wash, body lotion, hair conditioner, lip balm, or anti-acne product evaluation
 - User requests cosmetic product comparison
 - User requests formulation or formula architecture analysis
 - User requests product scoring or rating
@@ -58,7 +58,7 @@ Classify every parsed ingredient into exactly one primary ontology category befo
 
 **Risk [R] is additive** — an ingredient can be [R] AND another category (e.g., Oxybenzone is both [A] UV filter and [R] for endocrine concern).
 
-For the full INCI → ontology mapping (326 entries), read `references/ingredient-ontology-map.md`.
+For the full INCI → ontology mapping (375 entries), read `references/ingredient-ontology-map.md`.
 
 ## Step 3: Database Query
 
@@ -83,6 +83,7 @@ Identify the biological objective from the category:
 | Body Lotion | Barrier maintenance product — reduce TEWL, increase SC hydration, restore barrier lipid integrity. NOT a nutrient delivery system |
 | Hair Conditioner | Physical surface modification of dead keratin fibers — NOT biological repair. Cationic adsorption + silicone film + friction reduction |
 | Lip Balm | Occlusive barrier product for semi-mucous membrane. Reduce TEWL, protect damaged barrier, prevent fissures. NOT a "hydration" problem — lips cannot self-moisturize (no sebaceous glands) |
+| Anti-Acne Serum | Reduce acne lesions through multiple complementary pathways: antibacterial (BPO, azelaic acid), pore-疏通 (salicylic acid), anti-inflammatory (niacinamide, azelaic acid), sebum regulation (niacinamide, retinoids), and keratinocyte turnover (retinoids, BHA). NOT a one-dimensional problem — require multi-target strategy |
 
 ## Step 5: Analysis Engines (L2–L7)
 
@@ -106,7 +107,7 @@ Evaluate 12 skin types/conditions: Normal, Dry, Oily, Combination, Sensitive, Ac
 
 ## Step 6: Interaction Analysis (M16)
 
-Check all active ingredient pairs against the interaction rules database (`references/interaction-rules.md` — 30 rules). Apply interaction modifiers per dimension:
+Check all active ingredient pairs against the interaction rules database (`references/interaction-rules.md` — 32 rules). Apply interaction modifiers per dimension:
 
 | Type | IM |
 | --- | --- |
@@ -131,19 +132,19 @@ Assign evidence level to every mechanism claim:
 | D | Expert Opinion / Textbook | 0.50 |
 | E | Marketing Claim / No evidence | 0.20 |
 
-For the curated reference library (50+ citations with DOIs), read `references/evidence-citation-spec.md`.
+For the curated reference library (57 citations, 29 with DOI), read `references/evidence-citation-spec.md`.
 
 ## Step 8: Scoring (L9 + M19)
 
 ### Weight Profiles (auto-loaded by product category)
 
-| Dimension | Default | Cleanser | Sunscreen | Serum | Moisturizer | Infant |
-| --- | --- | --- | --- | --- | --- | --- |
-| Core Effectiveness | 40 | 30 | 35 | 35 | 30 | 15 |
-| Architecture | 25 | 25 | 25 | 20 | 25 | 20 |
-| Safety | 15 | 30 | 20 | 20 | 20 | 35 |
-| Support System | 10 | 10 | 15 | 15 | 15 | 15 |
-| Skin Adaptation | 10 | 5 | 5 | 10 | 10 | 15 |
+| Dimension | Default | Cleanser | Sunscreen | Serum | Moisturizer | Infant | Anti-Acne Serum |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Core Effectiveness | 40 | 30 | 35 | 35 | 30 | 15 | 35 |
+| Architecture | 25 | 25 | 25 | 20 | 25 | 20 | 15 |
+| Safety | 15 | 30 | 20 | 20 | 20 | 35 | 25 |
+| Support System | 10 | 10 | 15 | 15 | 15 | 15 | 15 |
+| Skin Adaptation | 10 | 5 | 5 | 10 | 10 | 15 | 10 |
 
 **Body Lotion** (added row):
 
@@ -327,6 +328,20 @@ Lower-priority sources may supplement but never override higher-priority sources
 - Never estimate SPF number from ingredient list
 - Coral-safe claim → check for Oxybenzone, Octinoxate, Homosalate, Octocrylene
 
+### Anti-Acne Serum
+- **Multi-target requirement**: A single-mechanism product (e.g., salicylic acid only) is rarely sufficient. Effective acne serums combine ≥2 of: antibacterial, exfoliating, anti-inflammatory, sebum-regulating pathways. Single-active acne products → reduced Core Effectiveness PS (−0.15)
+- **BPO + Retinoid conflict**: Benzoyl Peroxide and Retinol/Retinal in the same bottle → major conflict (IM 0.70). They must be in separate application steps (AM/PM split). If co-formulated → flag as formulation error
+- **Salicylic Acid tier**: 0.5–2% effective. Below 0.5% → limited efficacy. Above 2% → increased irritation without proportional benefit. Betaine Salicylate is a gentler alternative (same BHA class)
+- **Azelaic Acid**: 10–20% for acne. Below 10% → limited anti-acne efficacy (pigmentation improvement possible at 5%). Evidence B for both acne and post-inflammatory hyperpigmentation
+- **Niacinamide**: 2–5% optimal for acne (sebum regulation + anti-inflammatory). Above 5% → increased irritation risk without proportional benefit for acne indication
+- **Retinoids for acne**: Adapalene (OTC 0.1%) > Retinal > Retinol for acne indication. Retinyl Palmitate → insufficient evidence for acne (E)
+- **Comedogenicity screening**: Check each emollient/oil against comedogenicity ratings (see `references/extended-databases.md` §6.3). If any ingredient scores ≥3 and appears before preservatives → flag as potential pore-clogging. IPM/IPP (both ≥3) are common in lightweight serums — flag aggressively in acne products
+- **Innocent-sounding irritants**: "Essential oils for acne" (tea tree, lavender, peppermint) → irritate already-inflamed skin → reduce Safety PS (−0.10). Tea tree oil has weak evidence (C) but irritancy is well-documented
+- **pH constraint**: BHA (salicylic acid) requires pH 3.0–4.0. If niacinamide is also present at pH < 4.5 → flag niacinamide hydrolysis risk (→ nicotinic acid flushing). Formulation must balance these
+- **Anti-inflammatory support**: Panthenol, Allantoin, Madecassoside, Dipotassium Glycyrrhizate in an acne serum → +0.05 Safety PS. Acne treatment damages barrier — support ingredients are clinically meaningful
+- **Marketing traps**: "Detox", "Pore-tightening", "Oil-control miracle" — no mechanism → flag as unsupported. Charcoal in acne serums → no clinical evidence; marketing only → [M]
+- **For full rules, read `references/acne-serum-spec.md`**
+
 ## Separation of Concerns
 
 ```
@@ -347,19 +362,20 @@ Load these as needed — not all at once:
 | File | When to Load | Contents |
 | --- | --- | --- |
 | `references/input-parsing-spec.md` | Input is image/OCR or non-English | OCR correction, INCI normalization, zh/ja/ko → INCI tables, quality scoring |
-| `references/ingredient-ontology-map.md` | Classifying ingredients | 326 INCI → ontology + evidence level + risk mappings |
-| `references/bootstrap-database.md` | Looking up ingredient data | 140 entries: sunscreen, surfactants, preservatives, humectants, risk |
-| `references/extended-databases.md` | Looking up ingredient data | 85 entries: emollients, silicones, polymers, plant extracts |
-| `references/interaction-rules.md` | ≥2 active ingredients present | 30 rules with evidence, mechanisms, IM values |
+| `references/ingredient-ontology-map.md` | Classifying ingredients | 375 INCI → ontology + evidence level + risk mappings |
+| `references/bootstrap-database.md` | Looking up ingredient data | 141 entries: sunscreen, surfactants, preservatives, humectants, risk |
+| `references/extended-databases.md` | Looking up ingredient data | 100 entries: emollients, silicones, polymers, plant extracts |
+| `references/interaction-rules.md` | ≥2 active ingredients present | 32 rules with evidence, mechanisms, IM values |
 | `references/scoring-algorithm.md` | Computing the final score | Full PS/EM/IM formulas, presence score criteria, example walkthrough |
 | `references/confidence-engine-spec.md` | Computing confidence | Factor formulas, fallback triggers, conservative mode behavior |
-| `references/evidence-citation-spec.md` | Citing evidence in report | 50+ curated references with DOIs, Light/Full citation formats |
+| `references/evidence-citation-spec.md` | Citing evidence in report | 57 curated references (29 with DOI), Light/Full citation formats |
 | `references/output-format-spec.md` | Generating the final report | Complete Markdown template, JSON API schema, i18n hooks |
 | `references/body-wash-spec.md` | Product identified as body wash / shower gel | Rinse-off logic, surfactant evaluation, experience ingredients, weight profile |
 | `references/shampoo-spec.md` | Product identified as shampoo | Anti-fungal evidence hierarchy, seborrheic dermatitis pathogenesis, surfactant systems |
 | `references/body-lotion-spec.md` | Product identified as body lotion / body cream | Four functional systems, KP evaluation, barrier-friendly ingredients |
 | `references/hair-conditioner-spec.md` | Product identified as hair conditioner, hair mask, or leave-in | Cationic/silicone/fatty alcohol systems, dead keratin constraints |
 | `references/lip-balm-spec.md` | Product identified as lip balm, lip butter, lip mask, or SPF lip balm | Occlusive hierarchy, menthol/camphor danger, semi-mucous membrane |
+| `references/acne-serum-spec.md` | Product identified as anti-acne serum / acne treatment | Anti-acne ingredient hierarchy, comedogenicity evaluation protocol, multi-pathway analysis rules |
 | `references/framework-full.md` | Understanding full framework rationale | Complete L0–L12 + M13–M22 original specification |
 | `assets/report-schema.json` | JSON API output mode | JSON Schema for machine-consumable reports |
 
@@ -369,10 +385,10 @@ These internal resources are available for lookup during analysis:
 
 | Tool | Type | Description |
 | --- | --- | --- |
-| `ingredient_database` | Knowledge | Structured ingredient data — 225 entries across 9 databases |
-| `ontology_database` | Classification | INCI → 15-category ontology mapping — 326 entries |
-| `interaction_database` | Rules | Known ingredient interactions with evidence levels — 30 rules |
-| `evidence_database` | Reference | Curated scientific literature with DOIs — 50+ citations |
+| `ingredient_database` | Knowledge | Structured ingredient data — 241 entries across 9 databases |
+| `ontology_database` | Classification | INCI → 15-category ontology mapping — 375 entries |
+| `interaction_database` | Rules | Known ingredient interactions with evidence levels — 32 rules |
+| `evidence_database` | Reference | Curated scientific literature with DOIs — 57 citations (29 with DOI) |
 | `scoring_engine` | Function | PS×EM×IM scoring with 6 category-specific weight profiles |
 | `confidence_engine` | Function | 5-factor harmonic mean confidence calculation |
 

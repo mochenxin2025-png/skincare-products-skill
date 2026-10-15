@@ -7,7 +7,7 @@
 [![平台](https://img.shields.io/badge/平台-8-orange)](https://github.com)
 [![品类](https://img.shields.io/badge/产品品类-10-purple)](https://github.com)
 
-[![English](https://img.shields.io/badge/English-blue)](README_EN.md)
+[![English](https://img.shields.io/badge/English-blue)](README.md)
 
 ---
 
@@ -18,12 +18,12 @@
 - **第一性原理推理** — 在分析成分之前先确定生物学目标
 - **循证评估** — 每个功效机制都映射到 A–E 证据等级
 - **15 类成分本体论** — 在功效分析之前进行统一分类
-- **30 条已记录的成分相互作用** — 协同、拮抗和冲突规则
+- **32 条已记录的成分相互作用** — 协同、拮抗和冲突规则
 - **调和平均置信度评分** — 五因素不确定性传播
 - **按品类优化的权重配置** — 10 大产品类型的优化评分维度
 - **文献引用模式** — 医学/安全问题：问题拆分 (Claim Extraction)、证据路由 (指南/PubMed/法规)、结构化证据卡、5 段式答案 + 可点击来源链接
 
-该框架包含 **631 条结构化数据条目**，涵盖成分数据库、相互作用规则和科学参考文献。
+该框架包含 **735 条结构化数据条目**，涵盖成分数据库、相互作用规则和科学参考文献。
 
 ---
 
@@ -105,27 +105,28 @@ skincare-products-skill/
 ├── SKILL.md                           # 入口 — YAML 前置元数据 + 核心流程
 ├── references/                        # 按需加载的详细文档
 │   ├── framework-full.md              #   完整 L0–L12 + M13–M22 规范
-│   ├── ingredient-ontology-map.md     #   326 个 INCI 名 → 15 类本体论
-│   ├── bootstrap-database.md          #   140 条目（防晒剂、表面活性剂、防腐剂、保湿剂、风险成分）
-│   ├── extended-databases.md          #   85 条目（润肤剂、硅油、聚合物、植物提取物）
-│   ├── interaction-rules.md           #   30 条相互作用规则及证据等级
+│   ├── ingredient-ontology-map.md     #   375 个 INCI 名 → 15 类本体论
+│   ├── bootstrap-database.md          #   141 条目（防晒剂、表面活性剂、防腐剂、保湿剂、风险成分）
+│   ├── extended-databases.md          #   100 条目（润肤剂、硅油、聚合物、植物提取物）
+│   ├── interaction-rules.md           #   32 条相互作用规则及证据等级
 │   ├── scoring-algorithm.md           #   完整评分公式 + 烟酰胺精华走查
 │   ├── confidence-engine-spec.md      #   调和平均公式 + 回退联动
 │   ├── input-parsing-spec.md          #   OCR 纠错 + INCI 规范化 + 中日韩语言表
 │   ├── output-format-spec.md          #   Markdown 模板 + JSON API Schema
-│   ├── evidence-citation-spec.md      #   50+ 精选参考文献（含 DOI）
+│   ├── evidence-citation-spec.md      #   57 篇精选文献（29 篇含 DOI）
 │   ├── body-wash-spec.md              #   洗去型逻辑、表面活性剂评估、体验成分
 │   ├── body-lotion-spec.md            #   四大功能系统、KP 评估、屏障友好成分
 │   ├── shampoo-spec.md                #   抗真菌层级、脂溢性皮炎发病机制
 │   ├── hair-conditioner-spec.md       #   阳离子/硅油/脂肪醇系统、死角蛋白约束
-│   └── lip-balm-spec.md               #   封闭剂层级、薄荷醇/樟脑危险、半黏膜
+│   ├── lip-balm-spec.md               #   封闭剂层级、薄荷醇/樟脑危险、半黏膜
+│   ├── acne-serum-spec.md             #   抗痘成分层级 + 致痘性评估协议
 ├── assets/
 │   └── report-schema.json             #   JSON Schema 机器可读报告
 └── platforms/
     └── obsidian/                       #   Obsidian 格式的公式卡片
 ```
 
-> **设计原则**：渐进式披露。仅 `SKILL.md` 始终加载（~380 行）。15 个参考文件按需加载——当智能体需要成分数据、相互作用规则或品类特定评估逻辑时才会读取。
+> **设计原则**：渐进式披露。仅 `SKILL.md` 始终加载（~410 行）。16 个参考文件按需加载——当智能体需要成分数据、相互作用规则或品类特定评估逻辑时才会读取。
 
 ---
 
@@ -172,14 +173,14 @@ skincare-products-skill/
 
 | 资源 | 条目数 |
 | --- | --- |
-| 成分本体论映射 | 326 个 INCI 名称 |
-| 数据库条目（引导 + 扩展） | 225 |
-| 成分相互作用 | 30 条规则 |
-| 精选参考文献 | 50+（含 DOI） |
+| 成分本体论映射 | 375 个 INCI 名称 |
+| 数据库条目（引导 + 扩展） | 241 |
+| 成分相互作用 | 32 条规则 |
+| 精选参考文献 | 57（29 篇含 DOI） |
 | 产品品类 | 10 |
 | 肤质/状况 | 12 |
-| 权重配置 | 10 |
-| **结构化数据总计** | **~651** |
+| 权重配置 | 8 |
+| **结构化数据总计** | **735** |
 
 ---
 

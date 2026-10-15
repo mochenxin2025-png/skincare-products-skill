@@ -18,12 +18,12 @@ This is a **structured agent skill** that transforms any AI assistant into a der
 - **First-principle reasoning** — identify the biological objective before analyzing ingredients
 - **Evidence-based evaluation** — every mechanism claim mapped to an A–E evidence level
 - **15-category ingredient ontology** — unified classification before any efficacy analysis
-- **30 documented ingredient interactions** — synergy, antagonism, and conflict rules
+- **32 documented ingredient interactions** — synergy, antagonism, and conflict rules
 - **Harmonic-mean confidence scoring** — five-factor uncertainty propagation
 - **Per-category weight profiles** — 10 product types with optimized scoring dimensions
 - **Citation Mode** — for medical/safety questions: claim extraction, evidence routing (guidelines/PubMed/regulatory), structured evidence cards, and 5-section answers with clickable source links
 
-The framework contains **631 structured data entries** across ingredient databases, interaction rules, and scientific references.
+The framework contains **735 structured data entries** across ingredient databases, interaction rules, and scientific references.
 
 ---
 
@@ -174,27 +174,28 @@ skincare-products-skill/
 ├── SKILL.md                           # Entry point — YAML frontmatter + core pipeline
 ├── references/                        # Lazy-loaded detailed documentation
 │   ├── framework-full.md              #   Complete L0–L12 + M13–M22 specification
-│   ├── ingredient-ontology-map.md     #   326 INCI → 15-category ontology
-│   ├── bootstrap-database.md          #   140 entries (sunscreen, surfactants, preservatives, humectants, risk)
-│   ├── extended-databases.md          #   85 entries (emollients, silicones, polymers, plant extracts)
-│   ├── interaction-rules.md           #   30 interaction rules with evidence levels
+│   ├── ingredient-ontology-map.md     #   375 INCI → 15-category ontology
+│   ├── bootstrap-database.md          #   141 entries (sunscreen, surfactants, preservatives, humectants, risk)
+│   ├── extended-databases.md          #   100 entries (emollients, silicones, polymers, plant extracts)
+│   ├── interaction-rules.md           #   32 interaction rules with evidence levels
 │   ├── scoring-algorithm.md           #   Full scoring formulas + Niacinamide serum walkthrough
 │   ├── confidence-engine-spec.md      #   Harmonic mean formula + fallback linkage
 │   ├── input-parsing-spec.md          #   OCR correction + INCI normalization + CJK language tables
 │   ├── output-format-spec.md          #   Markdown template + JSON API schema
-│   ├── evidence-citation-spec.md      #   50+ curated references with DOIs
+│   ├── evidence-citation-spec.md      #   57 curated references (29 with DOI)
 │   ├── body-wash-spec.md              #   Rinse-off logic, surfactant evaluation, experience ingredients
 │   ├── body-lotion-spec.md            #   Four functional systems, KP evaluation, barrier-friendly ingredients
 │   ├── shampoo-spec.md                #   Anti-fungal hierarchy, seborrheic dermatitis pathogenesis
 │   ├── hair-conditioner-spec.md       #   Cationic/silicone/fatty alcohol systems, dead keratin constraints
-│   └── lip-balm-spec.md               #   Occlusive hierarchy, menthol/camphor danger, semi-mucous membrane
+│   ├── lip-balm-spec.md               #   Occlusive hierarchy, menthol/camphor danger, semi-mucous membrane
+│   ├── acne-serum-spec.md             #   Anti-acne ingredient hierarchy + comedogenicity protocol
 ├── assets/
 │   └── report-schema.json             #   JSON Schema for machine-consumable reports
 └── platforms/
     └── obsidian/                       #   Obsidian-formatted formula cards
 ```
 
-> **Design principle**: Progressive disclosure. Only `SKILL.md` is always loaded (~380 lines). The 15 reference files are loaded on demand when the agent needs ingredient data, interaction rules, or category-specific evaluation logic.
+> **Design principle**: Progressive disclosure. Only `SKILL.md` is always loaded (~410 lines). The 16 reference files are loaded on demand when the agent needs ingredient data, interaction rules, or category-specific evaluation logic.
 
 ---
 
@@ -241,14 +242,14 @@ No two product types share the same scoring dimensions. Cleansers prioritize saf
 
 | Resource | Entries |
 | --- | --- |
-| Ingredient Ontology Map | 326 INCI names |
-| Database Entries (Bootstrap + Extended) | 225 |
-| Ingredient Interactions | 30 rules |
-| Curated Literature References | 50+ (with DOIs) |
+| Ingredient Ontology Map | 375 INCI names |
+| Database Entries (Bootstrap + Extended) | 241 |
+| Ingredient Interactions | 32 rules |
+| Curated Literature References | 57 (29 with DOI) |
 | Product Categories | 10 |
 | Skin Types / Conditions | 12 |
-| Weight Profiles | 10 |
-| **Total Structured Data** | **~651** |
+| Weight Profiles | 8 |
+| **Total Structured Data** | **735** |
 
 ---
 

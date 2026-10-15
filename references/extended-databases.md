@@ -5,7 +5,7 @@ All entries follow M21 schema: Name / Alias / Category / Ontology / Mechanism / 
 
 ---
 
-## 6. Emollient Database (25 entries)
+## 6. Emollient Database (26 entries)
 
 Emollients fill intercorneocyte gaps, smooth skin surface, and reduce TEWL via occlusion.
 
@@ -182,7 +182,7 @@ Polymer system issues to flag:
 
 ---
 
-## 9. Plant Extract Database (25 entries)
+## 9. Plant Extract Database (39 entries)
 
 Covers common botanical extracts. Most default to [B] Botanical ontology. Reclassified to [A] or [SC] only when purified actives with clinical evidence are used instead of crude extracts.
 
@@ -283,4 +283,4 @@ Covers common botanical extracts. Most default to [B] Botanical ontology. Reclas
 | Silicones | extended-databases.md §7 | 20 |
 | Polymers | extended-databases.md §8 | 15 |
 | Plant Extracts | extended-databases.md §9 | 39 |
-| **Total** | | **251** |
+| **Total** | | **241** |
