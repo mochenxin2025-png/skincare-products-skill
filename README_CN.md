@@ -23,7 +23,7 @@
 - **按品类优化的权重配置** — 10 大产品类型的优化评分维度
 - **文献引用模式** — 医学/安全问题：问题拆分 (Claim Extraction)、证据路由 (指南/PubMed/法规)、结构化证据卡、5 段式答案 + 可点击来源链接
 
-该框架包含 **735 条结构化数据条目**，涵盖成分数据库、相互作用规则和科学参考文献。
+该框架包含 **738 条结构化数据条目**，涵盖成分数据库、相互作用规则和科学参考文献。
 
 ---
 
@@ -113,7 +113,7 @@ skincare-products-skill/
 │   ├── confidence-engine-spec.md      #   调和平均公式 + 回退联动
 │   ├── input-parsing-spec.md          #   OCR 纠错 + INCI 规范化 + 中日韩语言表
 │   ├── output-format-spec.md          #   Markdown 模板 + JSON API Schema
-│   ├── evidence-citation-spec.md      #   57 篇精选文献（29 篇含 DOI）
+│   ├── evidence-citation-spec.md      #   60 篇精选文献（28 篇含 DOI）
 │   ├── body-wash-spec.md              #   洗去型逻辑、表面活性剂评估、体验成分
 │   ├── body-lotion-spec.md            #   四大功能系统、KP 评估、屏障友好成分
 │   ├── shampoo-spec.md                #   抗真菌层级、脂溢性皮炎发病机制
@@ -176,11 +176,11 @@ skincare-products-skill/
 | 成分本体论映射 | 375 个 INCI 名称 |
 | 数据库条目（引导 + 扩展） | 241 |
 | 成分相互作用 | 32 条规则 |
-| 精选参考文献 | 57（29 篇含 DOI） |
+| 精选参考文献 | 60（28 篇含 DOI） |
 | 产品品类 | 10 |
 | 肤质/状况 | 12 |
 | 权重配置 | 8 |
-| **结构化数据总计** | **735** |
+| **结构化数据总计** | **738** |
 
 ---
 

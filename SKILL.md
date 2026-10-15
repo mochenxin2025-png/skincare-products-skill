@@ -159,7 +159,7 @@ Assign evidence level to every mechanism claim:
 | D | Expert Opinion / Textbook | 0.50 |
 | E | Marketing Claim / No evidence | 0.20 |
 
-For the curated reference library (57 citations, 29 with DOI), read `references/evidence-citation-spec.md`.
+For the curated reference library (60 citations, 28 with DOI), read `references/evidence-citation-spec.md`.
 
 ## Step 8: Scoring (L9 + M19)
 
@@ -395,7 +395,7 @@ Load these as needed — not all at once:
 | `references/interaction-rules.md` | ≥2 active ingredients present | 32 rules with evidence, mechanisms, IM values |
 | `references/scoring-algorithm.md` | Computing the final score | Full PS/EM/IM formulas, presence score criteria, example walkthrough |
 | `references/confidence-engine-spec.md` | Computing confidence | Factor formulas, fallback triggers, conservative mode behavior |
-| `references/evidence-citation-spec.md` | Citing evidence in report | 57 curated references (29 with DOI), Light/Full citation formats |
+| `references/evidence-citation-spec.md` | Citing evidence in report | 60 curated references (28 with DOI), Light/Full citation formats |
 | `references/output-format-spec.md` | Generating the final report | Complete Markdown template, JSON API schema, i18n hooks |
 | `references/body-wash-spec.md` | Product identified as body wash / shower gel | Rinse-off logic, surfactant evaluation, experience ingredients, weight profile |
 | `references/shampoo-spec.md` | Product identified as shampoo | Anti-fungal evidence hierarchy, seborrheic dermatitis pathogenesis, surfactant systems |
@@ -415,7 +415,7 @@ These internal resources are available for lookup during analysis:
 | `ingredient_database` | Knowledge | Structured ingredient data — 241 entries across 9 databases |
 | `ontology_database` | Classification | INCI → 15-category ontology mapping — 375 entries |
 | `interaction_database` | Rules | Known ingredient interactions with evidence levels — 32 rules |
-| `evidence_database` | Reference | Curated scientific literature with DOIs — 57 citations (29 with DOI) |
+| `evidence_database` | Reference | Curated scientific literature with DOIs — 60 citations (28 with DOI) |
 | `scoring_engine` | Function | PS×EM×IM scoring with 6 category-specific weight profiles |
 | `confidence_engine` | Function | 5-factor harmonic mean confidence calculation |
 
