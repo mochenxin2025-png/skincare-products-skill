@@ -23,7 +23,7 @@ This is a **structured agent skill** that transforms any AI assistant into a der
 - **Per-category weight profiles** — 13 product types with optimized scoring dimensions
 - **Citation Mode** — for medical/safety questions: claim extraction, evidence routing (guidelines/PubMed/regulatory), structured evidence cards, and 5-section answers with clickable source links
 
-The framework contains **718 structured data entries** across ingredient databases, interaction rules, and scientific references.
+The framework contains **721 structured data entries** across ingredient databases, interaction rules, and scientific references.
 
 ---
 
@@ -150,11 +150,17 @@ The skill operates in two modes, automatically selected based on user input:
 ### Scoring Formula (Product Analysis Mode)
 
 ```
-Final_Score = Σ(PS × EM × IM × Weight) − Marketing_Penalty
+```
+Final_Score = Σ(PS × EM × IM × Weight) − marketing deduction
 
 PS = Presence Score (0.0–1.0): how well the product fulfills each dimension
-EM = Evidence Multiplier: A=1.00  B=0.90  C=0.70  D=0.50  E=0.20
-IM = Interaction Modifier: Synergy=1.10  Independent=1.00  Antagonism=0.85  Conflict=0.70
+EM = Evidence Multiplier: A=1.00  B=0.90  C=0.70  D=0.50  E=0.20  unknown=0.40
+IM = Interaction Modifier — type defaults: Synergy=1.10  Independent=1.00  Antagonism=0.85  Conflict=0.70
+```
+
+IM type defaults, not fixed values: the interaction library carries a **precise per-rule IM** for each pair (1.15 for the CEF triple, 1.05 for mild synergy, 0.75/0.80 for milder conflicts). The rule's own value takes precedence; the four numbers above apply only when a pair is graded by type with no rule of its own.
+
+**Marketing deduction** — exactly one mechanism applies, never both: every profile except Body Wash and Shampoo deducts `Marketing_Penalty = (marketing_ratio − 0.30) × 15` (capped at −10) externally; those two carry a `Marketing` dimension *inside* their weights (10 and 5 points) instead. Either way marketing ingredients contribute zero positive score.
 ```
 
 ### Confidence
@@ -203,7 +209,7 @@ skincare-products-skill/
     └── obsidian/                       #   Obsidian-formatted formula cards
 ```
 
-> **Design principle**: Progressive disclosure. Only `SKILL.md` is always loaded (~480 lines). The 19 reference files are loaded on demand when the agent needs ingredient data, interaction rules, or category-specific evaluation logic.
+> **Design principle**: Progressive disclosure. Only `SKILL.md` is always loaded (~500 lines). The 19 reference files are loaded on demand when the agent needs ingredient data, interaction rules, or category-specific evaluation logic.
 
 ---
 
@@ -242,7 +248,7 @@ Database match? → YES: full confidence
 
 ### Category-Specific Weight Profiles
 
-No two product types share the same scoring dimensions. Cleansers prioritize safety (30%), sunscreens prioritize UV protection (35%), shampoos prioritize anti-fungal evidence (40% when medicated), body washes prioritize surfactant quality (35%). Nine of the eleven profiles live in their category's spec file (Shampoo and Body Wash included); the remaining two are tabulated in `SKILL.md` Step 8.
+No two product types share the same scoring dimensions. Cleansers prioritize safety (30%), sunscreens prioritize UV protection (35%), shampoos prioritize anti-fungal evidence (40% when medicated), body washes prioritize surfactant quality (35%). There are 14 profiles. Nine live in their category's spec file (Body Wash, Shampoo, Body Lotion, Hair Conditioner, Lip Balm, Anti-Acne Serum, Exfoliation, Toner, Mask); the other five — Default, Cleanser, Sunscreen, Serum, Moisturizer — are tabulated in `SKILL.md` Step 8. `Infant` is a population modifier applied on top of a base profile, not a profile of its own.
 
 ---
 
@@ -256,8 +262,8 @@ No two product types share the same scoring dimensions. Cleansers prioritize saf
 | Curated Literature References | 60 (38 with DOI) |
 | Product Categories | 13 |
 | Skin Types / Conditions | 12 |
-| Weight Profiles | 11 |
-| **Total Structured Data** | **718** |
+| Weight Profiles | 14 |
+| **Total Structured Data** | **721** |
 
 ---
 

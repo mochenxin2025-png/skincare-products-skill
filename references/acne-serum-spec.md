@@ -228,7 +228,7 @@ If the product treats **both** acne and PIH:
 
 | Claim | Source |
 | --- | --- |
-| Four-pathway pathogenesis; multi-pathway treatment requirement; azelaic acid, topical retinoids, benzoyl peroxide and salicylic acid as established acne treatments | Zaenglein AL, et al. *Guidelines of care for the management of acne vulgaris*. J Am Acad Dermatol 2016;74(5):945-973.e33. DOI `10.1016/j.jaad.2015.12.037` (Evidence A) |
+| Four-pathway pathogenesis; multi-pathway treatment requirement; azelaic acid, topical retinoids, benzoyl peroxide and salicylic acid as established acne treatments | Reynolds RV, Yeung H, Cheng CE, et al. *Guidelines of care for the management of acne vulgaris*. J Am Acad Dermatol 2024;90(5):1006.e1-1006.e30. DOI `10.1016/j.jaad.2023.12.017` (Evidence A) — the current guideline; it supersedes Zaenglein AL, et al., JAAD 2016;74(5):945-973.e33, DOI `10.1016/j.jaad.2015.12.037`, which remains citable as the prior version |
 | Adapalene 0.1% gel is available over the counter — the first retinoid switched from prescription to OTC for acne | US FDA, sNDA 020380/S-010, adapalene gel 0.1% Rx-to-OTC switch, approved 2016-07-15 |
 | Salicylic acid 0.5–2.0% acne range; China ≤ 2.0% leave-on / ≤ 3.0% rinse-off hair / ≤ 0.5% as a preservative, not for under-3s | 《化妆品安全技术规范》(2015 年版); EU Regulation (EC) 1223/2009 Annex III No. 98 — full table in `exfoliation-spec.md` §4 |
 | Salicylic acid (BHA) clinical entries | `evidence-citation-spec.md` BHA-01, BHA-02, BHA-03 |

@@ -479,7 +479,7 @@ These internal resources are available for lookup during analysis:
 | `ontology_database` | Classification | INCI → 15-category ontology mapping — 349 entries |
 | `interaction_database` | Rules | Known ingredient interactions with evidence levels — 32 rules |
 | `evidence_database` | Reference | Curated scientific literature with DOIs — 60 citations (38 with DOI) |
-| `scoring_engine` | Function | PS×EM×IM scoring with 11 weight profiles (5-dimension ones tabulated in SKILL.md Step 8; the 9 spec-defined ones inside their spec) |
+| `scoring_engine` | Function | PS×EM×IM scoring with 14 weight profiles (9 defined inside their category spec, 5 tabulated in SKILL.md Step 8; `Infant` is a modifier overlaid on a base profile) |
 | `confidence_engine` | Function | 5-factor harmonic mean confidence calculation |
 
 ## Cross-Agent Compatibility
