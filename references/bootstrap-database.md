@@ -297,7 +297,7 @@ Glycerin                 -           -            -            ✅        -
 ## Version & Expansion Notes
 
 - v1.1 — 31 risk entries, added Hypericum Perforatum phototoxicity
-- v1.0 bootstrap — 140 entries across 5 databases
+- v1.0 bootstrap — 140 entries across 5 databases (historical v1.0 count; v1.1 added 1 risk ingredient, so the tables below total **141**)
 - Next expansion: Emollient database, Silicone database, Plant extract database
 - All entries follow M21 schema
 - Fields marked "-" are awaiting population in subsequent versions

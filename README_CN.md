@@ -2,7 +2,7 @@
 
 > 面向皮肤科学的 AI 智能体框架，用于化妆品配方分析。从作用机制、配方逻辑和科学证据角度评估护肤、身体护理和头发护理产品——**不看品牌、营销或价格**。
 
-[![版本](https://img.shields.io/badge/版本-2.2-blue)](https://github.com)
+[![版本](https://img.shields.io/badge/版本-2.3-blue)](https://github.com)
 [![许可证](https://img.shields.io/badge/许可证-MIT-green)](https://github.com)
 [![平台](https://img.shields.io/badge/平台-8-orange)](https://github.com)
 [![品类](https://img.shields.io/badge/产品品类-13-purple)](https://github.com)
@@ -23,7 +23,7 @@
 - **按品类优化的权重配置** — 13 大产品类型的优化评分维度
 - **文献引用模式** — 医学/安全问题：问题拆分 (Claim Extraction)、证据路由 (指南/PubMed/法规)、结构化证据卡、5 段式答案 + 可点击来源链接
 
-该框架包含 **744 条结构化数据条目**，涵盖成分数据库、相互作用规则和科学参考文献。
+该框架包含 **718 条结构化数据条目**，涵盖成分数据库、相互作用规则和科学参考文献。
 
 ---
 
@@ -110,7 +110,7 @@ skincare-products-skill/
 ├── SKILL.md                           # 入口 — YAML 前置元数据 + 核心流程
 ├── references/                        # 按需加载的详细文档
 │   ├── framework-full.md              #   完整 L0–L12 + M13–M22 规范
-│   ├── ingredient-ontology-map.md     #   375 个 INCI 名 → 15 类本体论
+│   ├── ingredient-ontology-map.md     #   349 个 INCI 名 → 15 类本体论
 │   ├── bootstrap-database.md          #   141 条目（防晒剂、表面活性剂、防腐剂、保湿剂、风险成分）
 │   ├── extended-databases.md          #   100 条目（润肤剂、硅油、聚合物、植物提取物）
 │   ├── interaction-rules.md           #   32 条相互作用规则及证据等级
@@ -173,7 +173,7 @@ skincare-products-skill/
 
 ### 品类特定权重配置
 
-没有两个产品类型共享相同的评分维度。洁面产品优先考虑安全性（30%），防晒产品优先考虑 UV 防护（35%），药用洗发水优先考虑抗真菌证据（40%），沐浴露优先考虑表面活性剂质量（35%）。
+没有两个产品类型共享相同的评分维度。洁面产品优先考虑安全性（30%），防晒产品优先考虑 UV 防护（35%），药用洗发水优先考虑抗真菌证据（40%），沐浴露优先考虑表面活性剂质量（35%）。11 套权重档位中有 9 套存放在各自品类的 spec 文件中（含洗发水与沐浴露），其余 2 套列在 `SKILL.md` 步骤 8。
 
 ---
 
@@ -181,14 +181,14 @@ skincare-products-skill/
 
 | 资源 | 条目数 |
 | --- | --- |
-| 成分本体论映射 | 375 个 INCI 名称 |
+| 成分本体论映射 | 349 个 INCI 名称 |
 | 数据库条目（引导 + 扩展） | 241 |
 | 成分相互作用 | 32 条规则 |
 | 精选参考文献 | 60（38 篇含 DOI） |
 | 产品品类 | 13 |
 | 肤质/状况 | 12 |
 | 权重配置 | 11 |
-| **结构化数据总计** | **744** |
+| **结构化数据总计** | **718** |
 
 ---
 
@@ -228,7 +228,7 @@ hermes skills list | grep skincare
 
 下载便携式归档包用于离线安装：
 
-👉 [**skincare-products-skill.7z**](https://github.com/mochenxin2025-png/skincare-products-skill/releases/download/v2.2/skincare-products-skill.7z)
+👉 [**skincare-products-skill.7z**](https://github.com/mochenxin2025-png/skincare-products-skill/releases/download/v2.3/skincare-products-skill.7z)
 *(使用 7-Zip 解压到 `$HERMES_HOME/skills/`)*
 
 ---
@@ -292,6 +292,7 @@ wget -qO- https://github.com/mochenxin2025-png/skincare-products-skill/archive/r
 "玫瑰痤疮适合用烟酰胺吗？"
 "晚上十点吸收最好是真的吗？"
 "这个成分会致痘吗？"
+```
 
 ---
 

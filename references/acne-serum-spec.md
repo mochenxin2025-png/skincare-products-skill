@@ -1,6 +1,13 @@
-# Anti-Acne Serum Analysis Specification
+# Acne Serum Specification v1.0
 
-## Overview
+Supplement to the main framework. Covers anti-acne serums and acne treatments. Load this when the product category is identified as **"Anti-Acne Serum"**.
+
+---
+
+## 1. First Principle
+
+**First principle:** reduce acne lesions through multiple complementary pathways. Acne vulgaris is a multifactorial condition, so a single-mechanism product is rarely sufficient — the question this specification answers is *how many of the four pathways a formula covers, with actives at effective concentrations, and at what evidence level*.
+
 
 Acne vulgaris is a multifactorial condition involving four primary pathogenic pathways:
 1. **Follicular hyperkeratinization** — abnormal desquamation of follicular keratinocytes
@@ -12,7 +19,7 @@ An effective anti-acne serum must address ≥2 of these pathways. Single-mechani
 
 ---
 
-## Anti-Acne Ingredient Hierarchy
+## 2. Anti-Acne Ingredient Hierarchy
 
 ### Tier 1 — First-Line, Multi-Pathway (Evidence A/B)
 
@@ -44,7 +51,7 @@ An effective anti-acne serum must address ≥2 of these pathways. Single-mechani
 
 ---
 
-## Comedogenicity Evaluation Protocol
+## 3. Comedogenicity Evaluation Protocol
 
 ### Step 1: Flag all ingredients with known comedogenicity score
 
@@ -82,7 +89,7 @@ An effective anti-acne serum must address ≥2 of these pathways. Single-mechani
 
 ---
 
-## Multi-Pathway Analysis Rules
+## 4. Multi-Pathway Analysis Rules
 
 ### Rule 1: Pathway Coverage Scoring
 
@@ -148,7 +155,7 @@ If the product treats **both** acne and PIH:
 
 ---
 
-## Special Ingredient Assessments
+## 5. Special Ingredient Assessments
 
 ### Benzoyl Peroxide
 
@@ -178,7 +185,7 @@ If the product treats **both** acne and PIH:
 
 ---
 
-## Acne Severity-Product Matching
+## 6. Acne Severity-Product Matching
 
 | Acne Severity | Suitable Product Type | Not Suitable |
 | --- | --- | --- |
@@ -189,7 +196,21 @@ If the product treats **both** acne and PIH:
 
 ---
 
-## Anti-Hallucination Rules (Acne-Specific)
+## 7. Anti-Acne Serum Weight Profile
+
+| Dimension | Weight | Rationale |
+| --- | --- | --- |
+| Core Effectiveness | 35 | Pathway coverage — how many of the four pathogenic pathways the formula addresses, with actives at effective concentrations |
+| Safety | 25 | The target skin is already inflamed and often barrier-damaged, so irritancy and barrier load weigh more than in a healthy-skin product |
+| Architecture | 15 | The vehicle must carry lipophilic actives (BPO, retinoids) without destabilising them, and respect acid pH constraints |
+| Support System | 15 | Barrier support (panthenol, allantoin, madecassoside, dipotassium glycyrrhizate) is clinically meaningful here — acne treatment damages the barrier it depends on |
+| Skin Adaptation | 10 | Acne-prone, oily and combination skin are the primary targets; sensitivity and barrier damage are relative contraindications for parts of the arsenal |
+
+**Multi-target requirement:** a single-mechanism product cannot exceed the 0.5–0.69 band on Core Effectiveness (SKILL.md Step 8, Domain Quick Rules → Anti-Acne Serum).
+
+---
+
+## 8. Anti-Hallucination Rules (Acne-Specific)
 
 - **"Detox" or "Pore-tightening"** are marketing constructs, not mechanisms → flag as unsupported
 - **"Oil-free"** does not mean non-comedogenic (many synthetic esters are oil-free but highly comedogenic)
@@ -200,3 +221,23 @@ If the product treats **both** acne and PIH:
 - **Drying alcohols** (Alcohol Denat., SD Alcohol) in an acne serum → barrier-disrupting on already-inflamed skin → Safety PS −0.10
 - **Phototoxic botanicals** (Hypericum Perforatum / St. John's Wort / 贯叶连翘) in an acne serum → contains hypericin, activated by UVA/visible light → causes phototoxic burns on acne-inflamed skin AND worsens post-inflammatory hyperpigmentation (PIH). If found in leave-on product → Safety PS −0.20 regardless of position. Flag with: "🚨 Contains phototoxin — must not be used without rigorous sun protection. Contributes to PIH, the exact opposite of what an acne serum should do." Use same severity as BPO-Retinoid conflict.
 - **Proprietary complex traps** (SeboPlex, etc.) — active ingredients hidden inside trademarked complexes (e.g., Zinc Lactate inside SeboPlex) → concentration unverifiable. Do NOT assume therapeutic concentration. Note: "Active [X] is part of [Complex Y]; actual concentration unknown → efficacy uncertain." Reduce mechanism certainty for that active.
+
+---
+
+## 9. Sources
+
+| Claim | Source |
+| --- | --- |
+| Four-pathway pathogenesis; multi-pathway treatment requirement; azelaic acid, topical retinoids, benzoyl peroxide and salicylic acid as established acne treatments | Zaenglein AL, et al. *Guidelines of care for the management of acne vulgaris*. J Am Acad Dermatol 2016;74(5):945-973.e33. DOI `10.1016/j.jaad.2015.12.037` (Evidence A) |
+| Adapalene 0.1% gel is available over the counter — the first retinoid switched from prescription to OTC for acne | US FDA, sNDA 020380/S-010, adapalene gel 0.1% Rx-to-OTC switch, approved 2016-07-15 |
+| Salicylic acid 0.5–2.0% acne range; China ≤ 2.0% leave-on / ≤ 3.0% rinse-off hair / ≤ 0.5% as a preservative, not for under-3s | 《化妆品安全技术规范》(2015 年版); EU Regulation (EC) 1223/2009 Annex III No. 98 — full table in `exfoliation-spec.md` §4 |
+| Salicylic acid (BHA) clinical entries | `evidence-citation-spec.md` BHA-01, BHA-02, BHA-03 |
+| Niacinamide 2–5% sebum regulation and anti-inflammatory use | `evidence-citation-spec.md` NIA-01 … NIA-05 |
+| Retinoid efficacy, irritation and adaptation | `evidence-citation-spec.md` RET-01 … RET-05 |
+| AHA / PHA adjunct exfoliation evidence | `evidence-citation-spec.md` AHA-01 … AHA-05, PHA-02 |
+| BPO + retinoid must be split across application steps | `interaction-rules.md` **Rule 7** (Retinol + Benzoyl Peroxide) |
+| Acid overload and stacking | `interaction-rules.md` **Rule 9** (Glycolic + Salicylic), **Rule 11** (AHA + PHA), **Rule 6** (Retinol + AHA) |
+| Salicylic acid + niacinamide pH interaction | `interaction-rules.md` **Rule 10** |
+| Azelaic acid / zinc combined with niacinamide | `interaction-rules.md` **Rule 16**, **Rule 17** |
+
+> Where a claim has no pinned citation above, it rests on the framework's evidence grading (SKILL.md Step 7) and must be reported at that level — never upgraded.

@@ -35,15 +35,15 @@ Emollients fill intercorneocyte gaps, smooth skin surface, and reduce TEWL via o
 
 | # | Name | Alias | Feel | Comedogenic | Conc. | Skin |
 | --- | --- | --- | --- | --- | --- | --- |
-| 17 | Isopropyl Myristate | IPM | Very light, spreading | 3–5 | 1–10% | May clog pores; avoid in acne-prone |
-| 18 | Isopropyl Palmitate | IPP | Light | 3–4 | 1–10% | Similar to IPM |
-| 19 | C12-15 Alkyl Benzoate | — | Light, dry finish | 0–1 | 1–10% | All; good silicone alternative |
-| 20 | Octyldodecanol | — | Medium, emollient | 1–2 | 1–15% | Normal to dry |
-| 21 | Dicaprylyl Carbonate | — | Very light, dry | 0 | 1–15% | All; excellent spreadability |
-| 22 | Dicaprylyl Ether | — | Ultra-light, fast-absorbing | 0 | 1–15% | All; non-greasy |
-| 23 | Diisopropyl Sebacate | — | Very light, astringent feel | 0–1 | 1–10% | Oily skin; sebum-like esters |
-| 24 | Triethylhexanoin | — | Light, silky | 0–1 | 1–15% | All; good solvent for actives |
-| 25 | Hydrogenated Polyisobutene | — | Medium, luxurious | 0 | 1–20% | All; squalane alternative |
+| 18 | Isopropyl Myristate | IPM | Very light, spreading | 3–5 | 1–10% | May clog pores; avoid in acne-prone |
+| 19 | Isopropyl Palmitate | IPP | Light | 3–4 | 1–10% | Similar to IPM |
+| 20 | C12-15 Alkyl Benzoate | — | Light, dry finish | 0–1 | 1–10% | All; good silicone alternative |
+| 21 | Octyldodecanol | — | Medium, emollient | 1–2 | 1–15% | Normal to dry |
+| 22 | Dicaprylyl Carbonate | — | Very light, dry | 0 | 1–15% | All; excellent spreadability |
+| 23 | Dicaprylyl Ether | — | Ultra-light, fast-absorbing | 0 | 1–15% | All; non-greasy |
+| 24 | Diisopropyl Sebacate | — | Very light, astringent feel | 0–1 | 1–10% | Oily skin; sebum-like esters |
+| 25 | Triethylhexanoin | — | Light, silky | 0–1 | 1–15% | All; good solvent for actives |
+| 26 | Hydrogenated Polyisobutene | — | Medium, luxurious | 0 | 1–20% | All; squalane alternative |
 
 ### 6.3 Comedogenicity Quick Reference
 

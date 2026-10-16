@@ -6,14 +6,18 @@ The scoring system translates structured analysis into a numeric score (0–100)
 
 | Mode | Trigger | Behavior |
 | --- | --- | --- |
-| **Standard** | Validation confidence ≥ 60% | Full numeric scoring |
-| **Conservative** | Validation confidence < 60% | Qualitative assessment only, no numeric score |
+| **Standard** | Input quality (the `I` factor) ≥ 0.60 | Full pipeline; a numeric score is emitted only if **overall** confidence ≥ 0.60 |
+| **Conservative** | Input quality (`I`) < 0.60, **or** overall confidence < 0.40 | Qualitative assessment only, no numeric score |
+
+The two thresholds measure different things and are both defined in §4.
 
 ---
 
 ## 1. Weight Profiles (from M19)
 
 Each product category loads a distinct weight profile after recognition. All weights sum to 100%.
+
+> **Authority:** `SKILL.md` Step 8 is the entry point for weight profiles and lists the nine categories whose profile lives in their own spec file (Body Wash, Shampoo, Body Lotion, Hair Conditioner, Lip Balm, Anti-Acne Serum, Exfoliation, Toner, Mask). The profiles below cover the remaining categories; where this file and a category spec disagree, **the spec wins**. Dimension names here are the legacy M19 names (`Function`, `UV Protection`, `Barrier Function`) — treat them as synonyms of `Core Effectiveness`.
 
 ### 1.1 Default Profile (fallback)
 
@@ -25,7 +29,7 @@ Each product category loads a distinct weight profile after recognition. All wei
 | Safety | 15% |
 | Skin Adaptation | 10% |
 
-### 1.2 Cleanser / Shampoo
+### 1.2 Cleanser
 
 | Dimension | Weight |
 | --- | --- |
@@ -128,12 +132,23 @@ EM = (EM_highest × 0.6) + (EM_average_of_others × 0.4)
 
 Derived from M16 interaction analysis. Applied **per dimension** — only interactions relevant to that dimension affect its modifier.
 
-| Interaction Type | IM |
+| Interaction Type | Default IM |
 | --- | --- |
 | Synergy (confirmed) | 1.10 |
 | Independent (default) | 1.00 |
 | Antagonism (confirmed) | 0.85 |
 | Conflict (safety concern) | 0.70 |
+
+Those four are the **type defaults**. The interaction library carries a **precise per-rule IM** for every entry, and precise values take precedence — the type is a qualitative label, the IM is a quantitative value:
+
+| Type | IM values actually used in `interaction-rules.md` |
+| --- | --- |
+| Synergy | 1.05 (mild) · 1.10 (default) · 1.15 (strongest — CEF triple, Rule 3) |
+| Independent | 1.00 |
+| Antagonism | 0.85 (default) · 0.90 (mild) |
+| Conflict | 0.70 (default) · 0.75 · 0.80 · 0.85 (mildest) |
+
+**Resolution order:** if the pair has a rule in `interaction-rules.md`, use that rule's IM. Fall back to the type default only when a pair is graded by type without a rule of its own. A `Conflict` scored at 0.75 is therefore deliberate and correct — a milder conflict than one scored 0.70. Twelve of the 32 rules use a non-default value in this way; none of them is an error.
 
 **Multiple interactions**: When multiple interactions affect one dimension, use the **product** of all modifiers:
 
@@ -162,40 +177,71 @@ Rounded to nearest integer.
 Confidence is a **separate indicator** reported alongside the score, not multiplied into it.
 
 ```
-Confidence = min(
-    Input_Quality,        // from M14 validation
-    DB_Match_Rate,        // % of ingredients found in databases
-    Mechanism_Certainty,  // 1.0 - (unknown_mechanisms / total_mechanisms)
-    Interaction_Certainty // 1.0 if no interactions or all confirmed, 0.7 if unknowns exist
-)
+Confidence = 5 / (1/I + 1/D + 1/M + 1/X + 1/C)
+  I = Input Quality         (M14 validation_confidence / 100)
+  D = Database Match Rate   (matched / total ingredients)
+  M = Mechanism Certainty   (actives with known mechanisms / total actives)
+  X = Interaction Certainty (known pairs / total pairs)
+  C = Concentration Certainty (average per-ingredient confidence)
 ```
 
-| Confidence Range | Label |
-| --- | --- |
-| ≥ 80% | High |
-| 60–79% | Medium |
-| < 60% | Low → switch to Conservative Mode |
+If any factor is 0, drop that term: `Confidence = N / Σ(1/factor_i)`.
+
+The harmonic mean is deliberate — **the weakest factor dominates**. Example from `confidence-engine-spec.md`: I/D/M/X/C = 0.80/0.85/0.10/0.90/0.80 gives an arithmetic mean of 0.69 but a harmonic mean of 0.30.
+
+| Confidence Range | Label | Numeric score? | Language |
+| --- | --- | --- | --- |
+| ≥ 80% | 🟢 High | Yes | Definitive |
+| 60–79% | 🟡 Medium | Yes | Hedged ("appears to", "likely") |
+| 40–59% | 🟠 Low | **No** | Qualitative + caveats |
+| < 40% | 🔴 Critical | No | "Insufficient data" |
+
+### Two thresholds that are not the same threshold
+
+| Threshold | Applies to | Trigger effect |
+| --- | --- | --- |
+| **Input quality (the `I` factor) < 0.60** | the input alone (M14) | request better input; enter conservative mode |
+| **Overall confidence < 0.40** *(40–59% also suppresses the number)* | the whole analysis (M15) | conservative mode; no numeric score |
+
+The first can fire on a blurry photo even when everything else is solid; the second fires when the analysis as a whole is under-determined. A product can pass the first and fail the second — read them as separate gates, never as one 60% rule.
+
+`confidence-engine-spec.md` is the authoritative definition of both; if this section and that file ever disagree, that file wins.
 
 ### Conservative Mode Rules
 - Do not output a numeric score
 - Report: "Score: Insufficient data for reliable scoring"
 - Use qualitative language only ("appears adequate", "may be insufficient")
 - Explicitly list all data gaps
-- Confidence label: "Low — Conservative Mode"
+- Confidence label: the tier name from the table above + "Conservative Mode" (🟠 Low or 🔴 Critical)
 
 ---
 
 ## 5. Marketing Penalty
 
-Marketing ingredients (from M13 ontology: Botanical, Marketing, Fragrance, Colorant categories) do not contribute positive points to any dimension.
+Marketing ingredients (from the M13 ontology: **Botanical, Marketing, Fragrance, Colorant** categories) contribute **zero to positive scoring** in every dimension. Two deduction mechanisms exist. Apply **exactly one** — never both.
 
-**Overuse penalty**: If more than 30% of listed ingredients fall into marketing categories:
+### 5.1 External penalty — 5-dimension profiles
+
+Applies to every category except Body Wash and Shampoo.
+
+If more than 30% of listed ingredients fall into marketing categories:
 
 ```
 Marketing_Penalty = (marketing_ratio - 0.30) × 15
 ```
 
 Applied as a deduction from Final_Score, capped at −10 points.
+
+### 5.2 In-profile dimension — 6-dimension profiles (Body Wash, Shampoo only)
+
+These two profiles carry a `Marketing` dimension **inside** the 100-point weights (Body Wash 10, Shampoo 5). That dimension **is** their marketing deduction, and like the external penalty it can only subtract.
+
+| Product category | Mechanism | Extra step |
+| --- | --- | --- |
+| Body Wash, Shampoo | 5.2 — in-profile Marketing dimension | Do **not** apply the 5.1 formula |
+| Every other category | 5.1 — external `Marketing_Penalty` | — |
+
+Applying both would deduct twice for the same ingredients. That double-deduction is the defect this section exists to prevent.
 
 ---
 
@@ -208,7 +254,7 @@ Applied as a deduction from Final_Score, capped at −10 points.
 | All ingredients are marketing | PS = 0 for all function dimensions; score ≤ 15 |
 | 100% database match, all evidence A | Max confidence; still capped at presence reality |
 | Conflicting interactions in same dimension | Report all, use worst-case IM |
-| Ingredient appears in 2+ ontology categories | Primary category wins; flag ambiguity |
+| Ingredient appears in 2+ ontology categories | The ontology map is single-primary (Usage Rule 6): `Risk [R]` overlays are additive, every other ingredient has exactly one section. If an input is still ambiguous, apply the Usage Rule 6 resolution principle and flag it. |
 
 ---
 
@@ -279,11 +325,12 @@ Applied as a deduction from Final_Score, capped at −10 points.
 
 | Factor | Value |
 | --- | --- |
-| Input Quality | 100% (complete, readable) |
-| DB Match Rate | 100% (5/5 ingredients matched) |
-| Mechanism Certainty | 100% |
-| Interaction Certainty | 100% |
-| **Confidence** | **100% — High** |
+| Input Quality (I) | 100% (complete, readable) |
+| DB Match Rate (D) | 100% (5/5 ingredients matched) |
+| Mechanism Certainty (M) | 100% |
+| Interaction Certainty (X) | 100% |
+| Concentration Certainty (C) | 90% (niacinamide is declared at 10%; the excipients are not declared) |
+| **Confidence** | **98% — High** (`5 / (4×1.00 + 1/0.90) = 0.978`) |
 
 ### Marketing Penalty
 0 marketing ingredients → no penalty.

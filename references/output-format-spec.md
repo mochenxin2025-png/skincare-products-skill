@@ -586,6 +586,4 @@ Uncertain: <…>
 
 `report.scoring.total` MUST be `null` in Citation Mode — a number there means the mode was mis-selected.
 
-> **Known drift**: `assets/report-schema.json` does not yet carry every property in §2.1
-> (`support_system`, `marketing`, `interaction_analysis` are absent, and neither are the two
-> keys above). The schema asset lags the prose spec; treat §2.1 and §6.3 as authoritative.
+> **Schema status:** `assets/report-schema.json` now carries every property described above, including `support_system`, `marketing`, `interaction_analysis`, `skipped_modules`, the 13-value `product_category` enum, and the two Citation Mode keys. It also enforces the mode rules rather than merely describing them: a conservative-mode report must set `report.scoring.total` to `null` and must carry `data_gaps` and `remediation`; and a score must agree with its confidence label (≥80 `high`, 60–79 `medium`, 40–59 `low`, <40 `critical`). Treat §2.1 and §6.3 as the prose authority for meaning — the schema is their machine-checkable form.

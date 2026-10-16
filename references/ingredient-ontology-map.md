@@ -132,7 +132,6 @@ Ingredients that enable or enhance the primary function indirectly — humectant
 | Hexylene Glycol | 己二醇 | Humectant, antimicrobial booster | B |
 | 1,2-Hexanediol | 1,2-己二醇 | Humectant, antimicrobial booster (multifunctional preservative) | B |
 | Caprylyl Glycol | 辛甘醇 | Humectant, antimicrobial booster | B |
-| Ethylhexylglycerin | 乙基己基甘油 | Humectant, preservative booster | B |
 | Sorbitol | 山梨糖醇 | Humectant | B |
 | Trehalose | 海藻糖 | Humectant, cell protection | B |
 | Betaine | 甜菜碱 | Humectant, osmolyte | B |
@@ -154,17 +153,16 @@ Ingredients that enable or enhance the primary function indirectly — humectant
 | Isopentyldiol | 异戊二醇 | Humectant, antimicrobial booster | B |
 | Hydroxyacetophenone | 对羟基苯乙酮 | Antioxidant, preservative booster (multifunctional) | B |
 | Hydroxyethylpiperazine Ethane Sulfonic Acid (HEPES) | 羟乙基哌嗪乙烷磺酸 | pH buffer; mild exfoliant at ≥5% | B |
-| Cyclodextrin | 环糊精 | Encapsulation/stabilization of actives | B |
 | Potassium Lactate | 乳酸钾 | NMF component, humectant | B |
 | PEG/PPG-14/7 Dimethyl Ether | PEG/PPG-14/7 二甲基醚 | Humectant, solvent | C |
 | Maltodextrin | 麦芽糊精 | Binder, stabilizer | C |
-| Arginine | 精氨酸 | pH adjuster (carbomer neutralizer), amino acid | B |
 | Dextrin | 糊精 | Binder, stabilizer | C |
 | Glyceryl Glucoside | 甘油葡糖苷 | Humectant, cell protection | B |
-| Tromethamine | 氨丁三醇 | pH adjuster (Tris buffer) | B |
 
 ---
 
+
+> **Cross-reference:** `Ethylhexylglycerin`, `Cyclodextrin`, `Arginine`, `Tromethamine` are classified under §5 Preservative [P] / §9 Stabilizer [ST] and listed there — one primary category per ingredient (M13, Usage Rule 1).
 ## 3. Skin Conditioning [SC]
 
 Ingredients that improve skin feel and appearance without being primary actives.
@@ -172,11 +170,6 @@ Ingredients that improve skin feel and appearance without being primary actives.
 | INCI | 中文名 | Function | Evidence |
 | --- | --- | --- | --- |
 | Aloe Barbadensis Leaf Juice | 库拉索芦荟叶汁 | Soothing, hydrating | B |
-| Aloe Barbadensis Leaf Extract | 库拉索芦荟叶提取物 | Soothing | B |
-| Chamomilla Recutita Flower Extract | 母菊花提取物 | Soothing, anti-inflammatory | B |
-| Calendula Officinalis Flower Extract | 金盏花花提取物 | Soothing | B |
-| Camellia Sinensis Leaf Extract | 茶叶提取物 | Antioxidant, soothing | B |
-| Glycyrrhiza Glabra Root Extract | 光果甘草根提取物 | Brightening, anti-inflammatory | B |
 | Dipotassium Glycyrrhizate | 甘草酸二钾 | Anti-inflammatory, soothing | B |
 | Allantoin (conditioning) | 尿囊素 | Soothing (when not core active) | B |
 | Panthenol (conditioning) | 泛醇 | Conditioning (when not core active) | B |
@@ -188,6 +181,8 @@ Ingredients that improve skin feel and appearance without being primary actives.
 
 ---
 
+
+> **Cross-reference:** `Aloe Barbadensis Leaf Extract`, `Chamomilla Recutita Flower Extract`, `Calendula Officinalis Flower Extract`, `Camellia Sinensis Leaf Extract`, `Glycyrrhiza Glabra Root Extract` are classified under §13 Botanical [B] and listed there — one primary category per ingredient (M13, Usage Rule 1).
 ## 4. Texture Modifier [TM]
 
 Ingredients that modify product feel, spreadability, and sensory experience.
@@ -269,19 +264,14 @@ Ingredients that modify product feel, spreadability, and sensory experience.
 | Aqua / Water | 水 |
 | Alcohol Denat. | 变性乙醇 |
 | Ethanol | 乙醇 |
-| Propanediol | 丙二醇 |
-| Butylene Glycol | 丁二醇 |
-| Propylene Glycol | 丙二醇 |
-| Dipropylene Glycol | 二丙二醇 |
-| Pentylene Glycol | 戊二醇 |
 | Isododecane | 异十二烷 |
 | Isohexadecane | 异十六烷 |
-| Cyclopentasiloxane | 环五聚二甲基硅氧烷 |
-| Cyclohexasiloxane | 环己硅氧烷 |
 | C13-15 Alkane | C13-15 烷烃 |
 
 ---
 
+
+> **Cross-reference:** `Propanediol`, `Butylene Glycol`, `Propylene Glycol`, `Dipropylene Glycol`, `Pentylene Glycol`, `Cyclopentasiloxane`, `Cyclohexasiloxane` are classified under §2 Formula Support [FS] / §4 Texture Modifier [TM] and listed there — one primary category per ingredient (M13, Usage Rule 1).
 ## 7. Chelator [C]
 
 | INCI | 中文名 | Function |
@@ -331,22 +321,16 @@ Ingredients that modify product feel, spreadability, and sensory experience.
 
 | INCI | 中文名 | Function |
 | --- | --- | --- |
-| Xanthan Gum | 黄原胶 | Suspension, thickening |
-| Carbomer | 卡波姆 | Gel stabilizer |
 | Magnesium Aluminum Silicate | 硅酸铝镁 | Suspension stabilizer |
-| Microcrystalline Cellulose | 微晶纤维素 | Suspension stabilizer |
-| Cetyl Alcohol | 鲸蜡醇 | Emulsion stabilizer |
-| Stearyl Alcohol | 硬脂醇 | Emulsion stabilizer |
-| Glyceryl Stearate | 甘油硬脂酸酯 | Emulsion stabilizer |
 | Sodium Chloride | 氯化钠 | Viscosity modifier |
-| Acrylates Copolymer | 丙烯酸(酯)类共聚物 | Suspension stabilizer |
-| Polyquaternium-10 | 聚季铵盐-10 | Cationic stabilizer |
 | Cyclodextrin | 环糊精 | Encapsulation/stabilization cage for actives |
 | Arginine | 精氨酸 | pH adjuster (carbomer neutralizer) |
 | Tromethamine | 氨丁三醇 | pH adjuster (Tris buffer) |
 
 ---
 
+
+> **Cross-reference:** `Xanthan Gum`, `Carbomer`, `Microcrystalline Cellulose`, `Cetyl Alcohol`, `Stearyl Alcohol`, `Glyceryl Stearate`, `Acrylates Copolymer`, `Polyquaternium-10` are classified under §10 Film Former [FF] / §4 Texture Modifier [TM] / §8 Emulsifier [E] and listed there — one primary category per ingredient (M13, Usage Rule 1).
 ## 10. Film Former [FF]
 
 | INCI | 中文名 | Function |
@@ -399,7 +383,6 @@ Labeled as CI (Color Index) numbers or common names. All default to Marketing we
 | Eugenol | 丁香酚 | Medium |
 | Coumarin | 香豆素 | Medium |
 | Hexyl Cinnamal | 己基肉桂醛 | Medium |
-| Benzyl Alcohol | 苯甲醇 | Medium |
 | Benzyl Salicylate | 水杨酸苄酯 | Medium |
 | Benzyl Benzoate | 苯甲酸苄酯 | Medium |
 | Hydroxycitronellal | 羟基香茅醛 | Medium |
@@ -409,6 +392,8 @@ Labeled as CI (Color Index) numbers or common names. All default to Marketing we
 
 ---
 
+
+> **Cross-reference:** `Benzyl Alcohol` is classified under §5 Preservative [P] and listed there — one primary category per ingredient (M13, Usage Rule 1).
 ## 13. Botanical [B]
 
 Plant-derived ingredients with limited evidence for efficacy at cosmetic concentrations.
@@ -528,3 +513,18 @@ Ingredients with documented safety concerns — irritation, sensitization, or sy
 3. Botanical classification [B] is default for plant extracts unless purified active evidence exists (then reclassify to [A] or [SC]).
 4. Risk classification [R] is additive — an ingredient can be [R] AND also belong to another category for scoring (e.g. Oxybenzone is both [A] as UV filter and [R] for endocrine concern).
 5. Marketing [M] is reserved for ingredients with negligible or zero evidence of cosmetic function at typical formula concentrations.
+6. **Each ingredient appears as a data row in exactly one functional section.** Where an ingredient has more than one plausible function, the primary section is fixed by the resolution principle below, the secondary section carries no data row, and a `Cross-reference` note names the section that does. The only permitted repetition is the additive `Risk [R]` overlay of Rule 4, so the map satisfies `data rows = distinct INCI names + Risk overlays` and can be checked by script.
+
+**Two-function resolution principle** (applied to fix the 25 formerly duplicated entries):
+
+| Conflict | Primary section | Reason |
+| --- | --- | --- |
+| multi-functional humectant/solvent (glycols) vs `[S]` | `[FS]` | §2 covers humectant support; `[S]` keeps only ingredients whose sole job is solvation (water, ethanol, alkanes) |
+| preservative booster vs `[FS]` | `[P]` | preservative-system adequacy is assessed in §5 |
+| pH adjuster / encapsulant vs `[FS]` | `[ST]` | `[ST]` is the specific class for stabilisation |
+| plant extract vs `[SC]` | `[B]` | Usage Rule 3 — default `[B]` absent purified-active evidence |
+| rheology/thickener/fatty alcohol vs `[ST]` | `[TM]` | §4 is the home for texture, rheology and sensory functions |
+| volatile silicone carrier vs `[S]` | `[TM]` | silicones are classified by sensory function |
+| film former vs `[ST]` | `[FF]` | the film-forming function is the specific one |
+| emulsifier vs `[ST]` | `[E]` | the emulsifying function is the specific one |
+| fragrance allergen used as a preservative vs `[FR]` | `[P]` | its function in the formula is preservation; allergen severity is retained in §5 |

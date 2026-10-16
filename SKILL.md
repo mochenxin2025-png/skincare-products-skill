@@ -79,7 +79,9 @@ Assess input quality before reasoning. If the ingredient list comes from OCR, ap
 | Unreadable | 50% | Conservative mode (no numeric score) |
 | Unknown | 20% | Conservative mode; request better input |
 
-If validation confidence < 60%, enable conservative mode: no numeric score, qualitative only, list all data gaps.
+If **input quality (the `I` factor)** < 60%, enable conservative mode: no numeric score, qualitative only, list all data gaps.
+
+This is the **input-quality threshold**, and it is not the same gate as the overall-confidence threshold in Step 9: input quality measures whether the list itself can be read, overall confidence measures how well the analysis is determined. A product can pass this gate and still fail Step 9's (40–59% also suppresses the number). Both gates are defined in `references/confidence-engine-spec.md`.
 
 ## Step 2: Ontology Mapping (M13)
 
@@ -89,7 +91,7 @@ Classify every parsed ingredient into exactly one primary ontology category befo
 
 **Risk [R] is additive** — an ingredient can be [R] AND another category (e.g., Oxybenzone is both [A] UV filter and [R] for endocrine concern).
 
-For the full INCI → ontology mapping (375 entries), read `references/ingredient-ontology-map.md`.
+For the full INCI → ontology mapping (349 entries), read `references/ingredient-ontology-map.md`.
 
 ## Step 3: Database Query
 
@@ -178,27 +180,38 @@ For the curated reference library (60 citations, 38 with DOI), read `references/
 
 ### Weight Profiles (auto-loaded by product category)
 
-| Dimension | Default | Cleanser | Sunscreen | Serum | Moisturizer | Infant | Anti-Acne Serum | Exfoliation | Toner | Mask |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| Core Effectiveness | 40 | 30 | 35 | 35 | 30 | 15 | 35 | 35 | 30 | 35 |
-| Architecture | 25 | 25 | 25 | 20 | 25 | 20 | 15 | 15 | 30 | 25 |
-| Safety | 15 | 30 | 20 | 20 | 20 | 35 | 25 | 30 | 25 | 25 |
-| Support System | 10 | 10 | 15 | 15 | 15 | 15 | 15 | 10 | 10 | 10 |
-| Skin Adaptation | 10 | 5 | 5 | 10 | 10 | 15 | 10 | 10 | 5 | 5 |
+**Categories with a dedicated spec file — the profile lives in that spec, which is the single source of truth. Load it; never fall back to `Default` for these:**
+
+| Category | Weight profile |
+| --- | --- |
+| Body Wash | `references/body-wash-spec.md` §7 |
+| Shampoo | `references/shampoo-spec.md` §7 |
+| Body Lotion | `references/body-lotion-spec.md` §3 |
+| Hair Conditioner | `references/hair-conditioner-spec.md` §7 |
+| Lip Balm | `references/lip-balm-spec.md` §8 |
+| Anti-Acne Serum | `references/acne-serum-spec.md` §7 |
+| Exfoliation | `references/exfoliation-spec.md` §6 |
+| Toner | `references/toner-spec.md` §4 |
+| Mask | `references/mask-spec.md` §3 |
+
+**Categories without a spec file — profile defined here:**
+
+| Dimension | Default | Cleanser | Sunscreen | Serum | Moisturizer | Infant |
+| --- | --- | --- | --- | --- | --- | --- |
+| Core Effectiveness | 40 | 30 | 35 | 35 | 30 | 15 |
+| Architecture | 25 | 25 | 25 | 20 | 25 | 20 |
+| Safety | 15 | 30 | 20 | 20 | 20 | 35 |
+| Support System | 10 | 10 | 15 | 15 | 15 | 15 |
+| Skin Adaptation | 10 | 5 | 5 | 10 | 10 | 15 |
 
 `Infant` is a **population modifier, not a product category** — apply it on top of the base category (a baby cream is Moisturizer + Infant, a baby wash is Body Wash + Infant). It raises Safety to 35 and lowers Core Effectiveness to 15 to reflect a near-zero tolerance for irritation.
 
-**Body Lotion** (added row):
+**Every profile sums to 100.** Body Wash and Shampoo differ in structure, not in total: each carries a sixth **Marketing dimension** *inside* the weights (10 and 5 points) as its marketing deduction. Apply one deduction mechanism or the other, **never both**:
 
-| Dimension | Body Lotion |
-| --- | --- |
-| Core Effectiveness | 40 (weighted: Humectant 25% + Occlusive 30% + Emollient 20% + Barrier Repair 25%) |
-| Architecture | 20 |
-| Safety | 20 |
-| Support System | 15 |
-| Skin Adaptation | 5 |
+- **5-dimension profile** → apply `Marketing_Penalty` as an external deduction (formula below).
+- **6-dimension profile** (Body Wash, Shampoo) → the marketing deduction is already inside the weights; do **not** apply `Marketing_Penalty` on top.
 
-For the full four-functional-system breakdown and KP-specific rules, read `references/body-lotion-spec.md`.
+Either way, marketing ingredients contribute **zero to positive scoring** — both mechanisms can only subtract.
 
 ### Scoring Formula
 
@@ -436,7 +449,7 @@ Load these as needed — not all at once:
 | File | When to Load | Contents |
 | --- | --- | --- |
 | `references/input-parsing-spec.md` | Input is image/OCR or non-English | OCR correction, INCI normalization, zh/ja/ko → INCI tables, quality scoring |
-| `references/ingredient-ontology-map.md` | Classifying ingredients | 375 INCI → ontology + evidence level + risk mappings |
+| `references/ingredient-ontology-map.md` | Classifying ingredients | 349 INCI → ontology + evidence level + risk mappings |
 | `references/bootstrap-database.md` | Looking up ingredient data | 141 entries: sunscreen, surfactants, preservatives, humectants, risk |
 | `references/extended-databases.md` | Looking up ingredient data | 100 entries: emollients, silicones, polymers, plant extracts |
 | `references/interaction-rules.md` | ≥2 active ingredients present | 32 rules with evidence, mechanisms, IM values |
@@ -463,10 +476,10 @@ These internal resources are available for lookup during analysis:
 | Tool | Type | Description |
 | --- | --- | --- |
 | `ingredient_database` | Knowledge | Structured ingredient data — 241 entries across 9 databases |
-| `ontology_database` | Classification | INCI → 15-category ontology mapping — 375 entries |
+| `ontology_database` | Classification | INCI → 15-category ontology mapping — 349 entries |
 | `interaction_database` | Rules | Known ingredient interactions with evidence levels — 32 rules |
 | `evidence_database` | Reference | Curated scientific literature with DOIs — 60 citations (38 with DOI) |
-| `scoring_engine` | Function | PS×EM×IM scoring with 6 category-specific weight profiles |
+| `scoring_engine` | Function | PS×EM×IM scoring with 11 weight profiles (5-dimension ones tabulated in SKILL.md Step 8; the 9 spec-defined ones inside their spec) |
 | `confidence_engine` | Function | 5-factor harmonic mean confidence calculation |
 
 ## Cross-Agent Compatibility

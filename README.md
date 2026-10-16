@@ -2,7 +2,7 @@
 
 > A dermatology-oriented AI agent framework for cosmetic formulation analysis. Evaluates skincare, body care, and hair care products by mechanism, formula logic, and scientific evidence — never by brand, marketing, or price.
 
-[![Version](https://img.shields.io/badge/version-2.2-blue)](https://github.com)
+[![Version](https://img.shields.io/badge/version-2.3-blue)](https://github.com)
 [![License](https://img.shields.io/badge/license-MIT-green)](https://github.com)
 [![Platforms](https://img.shields.io/badge/platforms-8-orange)](https://github.com)
 [![Categories](https://img.shields.io/badge/product%20categories-13-purple)](https://github.com)
@@ -23,7 +23,7 @@ This is a **structured agent skill** that transforms any AI assistant into a der
 - **Per-category weight profiles** — 13 product types with optimized scoring dimensions
 - **Citation Mode** — for medical/safety questions: claim extraction, evidence routing (guidelines/PubMed/regulatory), structured evidence cards, and 5-section answers with clickable source links
 
-The framework contains **744 structured data entries** across ingredient databases, interaction rules, and scientific references.
+The framework contains **718 structured data entries** across ingredient databases, interaction rules, and scientific references.
 
 ---
 
@@ -63,7 +63,7 @@ hermes skills list | grep skincare
 
 Download the portable archive for offline installation:
 
-👉 [**skincare-products-skill.7z**](https://github.com/mochenxin2025-png/skincare-products-skill/releases/download/v2.2/skincare-products-skill.7z)
+👉 [**skincare-products-skill.7z**](https://github.com/mochenxin2025-png/skincare-products-skill/releases/download/v2.3/skincare-products-skill.7z)
 *(Extract to `$HERMES_HOME/skills/` using 7-Zip)*
 
 ---
@@ -179,7 +179,7 @@ skincare-products-skill/
 ├── SKILL.md                           # Entry point — YAML frontmatter + core pipeline
 ├── references/                        # Lazy-loaded detailed documentation
 │   ├── framework-full.md              #   Complete L0–L12 + M13–M22 specification
-│   ├── ingredient-ontology-map.md     #   375 INCI → 15-category ontology
+│   ├── ingredient-ontology-map.md     #   349 INCI → 15-category ontology
 │   ├── bootstrap-database.md          #   141 entries (sunscreen, surfactants, preservatives, humectants, risk)
 │   ├── extended-databases.md          #   100 entries (emollients, silicones, polymers, plant extracts)
 │   ├── interaction-rules.md           #   32 interaction rules with evidence levels
@@ -242,7 +242,7 @@ Database match? → YES: full confidence
 
 ### Category-Specific Weight Profiles
 
-No two product types share the same scoring dimensions. Cleansers prioritize safety (30%), sunscreens prioritize UV protection (35%), shampoos prioritize anti-fungal evidence (40% when medicated), body washes prioritize surfactant quality (35%).
+No two product types share the same scoring dimensions. Cleansers prioritize safety (30%), sunscreens prioritize UV protection (35%), shampoos prioritize anti-fungal evidence (40% when medicated), body washes prioritize surfactant quality (35%). Nine of the eleven profiles live in their category's spec file (Shampoo and Body Wash included); the remaining two are tabulated in `SKILL.md` Step 8.
 
 ---
 
@@ -250,14 +250,14 @@ No two product types share the same scoring dimensions. Cleansers prioritize saf
 
 | Resource | Entries |
 | --- | --- |
-| Ingredient Ontology Map | 375 INCI names |
+| Ingredient Ontology Map | 349 INCI names |
 | Database Entries (Bootstrap + Extended) | 241 |
 | Ingredient Interactions | 32 rules |
 | Curated Literature References | 60 (38 with DOI) |
 | Product Categories | 13 |
 | Skin Types / Conditions | 12 |
 | Weight Profiles | 11 |
-| **Total Structured Data** | **744** |
+| **Total Structured Data** | **718** |
 
 ---
 
@@ -293,6 +293,7 @@ Place the rule content in `.cursorrules` or `.cursor/rules/skincare.md`.
 "Can I use niacinamide if I have rosacea?"
 "Is it true that skin absorbs best at 10pm?"
 "Will this ingredient cause acne?"
+```
 
 ---
 
